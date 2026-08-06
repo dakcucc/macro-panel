@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0f172a">
+<title>지표판</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0f172a;color:#e2e8f0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:16px;max-width:720px;margin:0 auto}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+header{border-bottom:1px solid #334155;padding-bottom:14px;margin-bottom:16px}
+h1{font-size:20px;font-weight:600;letter-spacing:-.02em}
+.eyebrow{font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.15em;color:#64748b;text-transform:uppercase}
+.stamp{font-family:ui-monospace,monospace;font-size:11px;color:#64748b;margin-top:8px}
+.banner{background:#450a0a;border:1px solid #b91c1c;color:#fecaca;padding:10px 12px;border-radius:4px;font-size:13px;margin-bottom:16px}
+.grid{display:grid;gap:10px}
+@media(min-width:560px){.grid{grid-template-columns:1fr 1fr}}
+.card{background:#1e293b;border:1px solid #334155;border-radius:6px;padding:14px}
+.card.lit{border-color:#b45309;background:#221c14}
+.card.err{opacity:.5}
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.nm{font-size:13px;color:#cbd5e1}
+.dt{font-family:ui-monospace,monospace;font-size:10px;color:#64748b}
+.val{font-family:ui-monospace,monospace;font-size:26px;font-weight:600;margin:6px 0 8px;letter-spacing:-.02em}
+.row{display:flex;align-items:center;gap:6px;font-family:ui-monospace,monospace;font-size:11px;flex-wrap:wrap}
+.lb{color:#64748b}
+.d{margin-right:8px}
+.d.up{color:#f87171}
+.d.down{color:#4ade80}
+.d.flat{color:#64748b}
+.spark{width:100%;height:28px;margin:10px 0 6px;display:block}
+.rng{font-family:ui-monospace,monospace;font-size:10px;color:#64748b}
+.trig{font-family:ui-monospace,monospace;font-size:10px;color:#64748b;margin-top:6px;padding-top:6px;border-top:1px solid #334155}
+.trig.on{color:#fbbf24}
+.note{font-size:11px;color:#64748b;margin-top:6px;line-height:1.5}
+footer{margin-top:24px;padding-top:14px;border-top:1px solid #1e293b;font-size:11px;color:#475569;line-height:1.6}
+</style></head><body>
+<header>
+  <div class="eyebrow">Macro Panel</div>
+  <h1>지표판</h1>
+  <div class="stamp">갱신 2026-08-06 15:47 KST</div>
+</header>
+
+<div class="grid">
+<div class="card err"><div class="nm">미 10년 실질금리</div><div class="note">데이터를 받지 못했습니다. The read operation timed out</div></div><div class="card err"><div class="nm">하이일드 스프레드</div><div class="note">데이터를 받지 못했습니다. The read operation timed out</div></div><div class="card err"><div class="nm">미 30년 국채금리</div><div class="note">데이터를 받지 못했습니다. The read operation timed out</div></div><div class="card err"><div class="nm">장단기 금리차 10Y-2Y</div><div class="note">데이터를 받지 못했습니다. The read operation timed out</div></div><div class="card err"><div class="nm">VIX (미국 변동성)</div><div class="note">데이터를 받지 못했습니다. 데이터가 비어 있음</div></div><div class="card err"><div class="nm">코스피</div><div class="note">데이터를 받지 못했습니다. 데이터가 비어 있음</div></div><div class="card err"><div class="nm">원/달러</div><div class="note">데이터를 받지 못했습니다. 데이터가 비어 있음</div></div><div class="card err"><div class="nm">엔/달러</div><div class="note">데이터를 받지 못했습니다. 데이터가 비어 있음</div></div><div class="card err"><div class="nm">S&P 500</div><div class="note">데이터를 받지 못했습니다. 데이터가 비어 있음</div></div><div class="card err"><div class="nm">금 (온스당 달러)</div><div class="note">데이터를 받지 못했습니다. 데이터가 비어 있음</div></div>
+</div>
+<footer>
+가격 변화의 색은 방향만 나타냅니다. 빨강이 나쁘다는 뜻이 아닙니다.<br>
+반증 조건은 fetch.py 상단에서 고칠 수 있습니다.<br>
+출처 FRED · stooq. 투자 판단과 책임은 본인에게 있습니다.
+</footer>
+</body></html>
