@@ -21,73 +21,133 @@ HISTORY = os.path.join(OUT_DIR, "history.json")
 # 지표 설정
 #   trigger    : 반증 조건. 값이 이 선을 넘으면 점등된다.
 #   direction  : "above" = 크면 점등, "below" = 작으면 점등
-#   core       : True 면 핵심 지표, False 면 참고 지표
-#   여기 숫자만 고치면 조건이 바뀐다.
+#   core       : True 면 핵심, False 면 참고
+#   guide      : 카드에서 펼쳐볼 설명 (what / read / why / caution)
 # ─────────────────────────────────────────────────────────────
 
 METRICS = [
-    # ── 핵심 6 ──
+    # ── 핵심 ──
     {
         "kind": "yahoo", "sym": "^VIX", "core": True,
         "name": "VIX (미국 변동성)", "unit": "",
-        "note": "코스피 카드와 대조할 것. 미국이 조용한데 한국만 흔들리면 업황이 아니라 수급 문제다.",
+        "note": "미국 시장의 체온계. 코스피 카드와 나란히 볼 것.",
         "trigger": 25, "direction": "above",
+        "guide": {
+            "what": "미국 S&P500 옵션 가격에서 뽑아낸 '앞으로 30일간 예상되는 출렁임의 크기'입니다. 흔히 공포지수라고 부릅니다. 주가가 아니라 <b>불안의 양</b>을 재는 숫자입니다.",
+            "read": "대략 12~20이면 평온, 20~30이면 경계, 30을 넘으면 패닉, 40 이상은 위기 국면입니다. 오른다고 주가가 반드시 떨어지는 건 아니지만, 큰 하락은 거의 항상 VIX 급등을 동반합니다.",
+            "why": "이 판에서 VIX의 역할은 <b>대조군</b>입니다. 미국이 조용한데(VIX 낮음) 한국만 크게 흔들린다면, 그건 세계적인 문제가 아니라 한국 시장 안에서 벌어지는 일이라는 뜻입니다. 반도체 업황 걱정인지 국내 수급 문제인지를 가르는 첫 갈림길입니다.",
+            "caution": "VIX가 낮다고 안전한 게 아닙니다. 오히려 시장이 방심하고 있다는 뜻이기도 하고, 급락은 대개 VIX가 낮은 상태에서 시작됩니다. 낮은 VIX는 '지금 조용하다'이지 '앞으로 조용할 것이다'가 아닙니다.",
+        },
     },
     {
         "kind": "yahoo", "sym": "^KS11", "core": True,
         "name": "코스피", "unit": "",
-        "note": "VIX와 나란히 볼 것. 둘의 괴리가 한국 고유 리스크의 크기다.",
+        "note": "한국 시장 전체의 체온. VIX와의 괴리가 한국 고유 리스크의 크기다.",
         "trigger": None, "direction": None,
+        "guide": {
+            "what": "한국 유가증권시장에 상장된 주식 전체의 시가총액을 지수로 만든 값입니다. 1980년 1월 4일을 100으로 잡고 계산합니다.",
+            "read": "절대 숫자보다 <b>52주 범위 안에서 지금 어디쯤인지</b>를 보세요. 카드 아래 '52주 최저 ~ 최고'가 그 범위입니다. 고점 근처면 기대가 많이 반영된 상태, 저점 근처면 공포가 반영된 상태입니다. 20일 변화율이 ±10%를 넘으면 상당히 큰 움직임입니다.",
+            "why": "선생님이 지금 진입을 보류 중인 시장이 여기입니다. VIX와 함께 보면 '한국만의 문제인가'가 판별됩니다.",
+            "caution": "코스피는 삼성전자와 SK하이닉스의 비중이 지나치게 커서, 사실상 반도체 지수에 가깝습니다. 코스피가 올랐다고 한국 경제 전체가 좋아진 게 아니고, 국내 ETF로 분산했다고 생각해도 결국 이 두 종목에 걸려 있는 경우가 많습니다.",
+        },
     },
     {
         "kind": "yahoo", "sym": "^TYX", "core": True,
         "name": "미 30년 국채금리", "unit": "%",
-        "note": "5.28% 상향 돌파 후 고착이 가설 #1의 반증 조건. 성장주 할인율의 뿌리.",
+        "note": "모든 자산 가격의 기준선. 가설 #1의 반증 조건이 여기 걸려 있다.",
         "trigger": 5.28, "direction": "above",
+        "guide": {
+            "what": "미국 정부가 30년 동안 돈을 빌리면서 내는 이자율입니다. 세상에서 가장 안전하다고 여겨지는 자산의 수익률이라, 다른 모든 투자의 <b>비교 기준</b>이 됩니다.",
+            "read": "이 숫자가 오르면 주식에 불리합니다. 왜냐하면 '아무 위험 없이 5%를 받을 수 있는데, 굳이 위험한 주식을 왜 사나'가 되기 때문입니다. 특히 먼 미래의 이익을 기대하고 사는 성장주·기술주가 크게 흔들립니다.",
+            "why": "지금 반증 조건이 5.28%로 걸려 있습니다. 2026년 7월에 19년 만의 최고치로 찍었던 수치입니다. 이 선을 다시 넘어 눌러앉으면, AI·반도체 같은 성장 테마에 계속 역풍이 붑니다.",
+            "caution": "하루 0.05%p 움직임도 채권시장에서는 큰 사건입니다. 주식처럼 몇 % 단위로 생각하면 감이 안 잡히니, 변화율보다 <b>절대 수치가 어디에 있는지</b>를 보세요.",
+        },
     },
     {
         "kind": "yahoo", "sym": "KRW=X", "core": True,
         "name": "원/달러", "unit": "원",
-        "note": "급등하면 외국인 이탈 압력. 환노출 ETF 수익률도 여기 걸린다.",
+        "note": "외국인 수급과 보유 ETF 수익률에 동시에 걸리는 숫자.",
         "trigger": 1450, "direction": "above",
+        "guide": {
+            "what": "1달러를 사는 데 필요한 원화입니다. 숫자가 <b>올라가면 원화 약세</b>(원화 가치 하락), 내려가면 원화 강세입니다.",
+            "read": "대략 1,300원 아래면 원화 강세권, 1,400원대면 약세, 1,500원을 넘으면 위기 신호로 봅니다.",
+            "why": "두 가지로 걸립니다. 첫째, 외국인 투자자는 한국에서 번 원화를 달러로 바꿔 가져가는데, 환율이 오르면 주가가 올라도 손해라 팔고 나갑니다. 둘째, 보유 중인 <b>국내 상장 미국 ETF가 환헤지형이 아니라면</b> 환율이 내려갈 때 지수가 올라도 수익이 깎입니다.",
+            "caution": "환율은 방향이 '좋다·나쁘다'로 딱 갈리지 않습니다. 수출기업에는 오르는 게 유리하고, 미국 자산을 원화로 사둔 사람에게도 오르는 게 유리합니다. 반대로 외국인 수급에는 불리합니다. 누구 입장에서 보는지를 먼저 정해야 합니다.",
+        },
     },
     {
         "kind": "ratio", "sym": ("HYG", "IEF"), "core": True,
         "name": "신용 스트레스 (HYG/IEF)", "unit": "",
-        "note": "하이일드 ETF ÷ 국채 ETF. 내려갈수록 신용 경계. 주식보다 먼저 움직이는 경우가 많다.",
+        "note": "채권시장의 경계심. 주식보다 먼저 움직이는 경우가 많다.",
         "trigger": None, "direction": None,
+        "guide": {
+            "what": "신용도가 낮은 회사들의 채권 ETF(HYG)를, 안전한 미국 국채 ETF(IEF)로 나눈 값입니다. 두 가격의 비율이라 단위가 없습니다.",
+            "read": "<b>절대 숫자 0.85 자체에는 아무 의미가 없습니다. 방향만 보세요.</b> 내려가면 투자자들이 위험한 채권을 팔고 안전한 국채로 옮겨가는 중이라는 뜻이고, 이건 경계심이 커지고 있다는 신호입니다. 올라가면 반대입니다.",
+            "why": "채권시장은 주식시장보다 겁이 많습니다. 신용 경계가 먼저 올라가고 주식이 나중에 빠지는 경우가 자주 관찰됩니다. 그래서 주식만 보고 있으면 놓치는 신호가 여기서 먼저 잡힙니다.",
+            "caution": "하루하루 변동은 대부분 노이즈입니다. <b>20일 변화율</b>만 보시고, 그것도 -1% 이상 빠질 때만 의미 있게 받아들이세요. 원래 지표(하이일드 스프레드)를 못 쓰게 되어 대신 쓰는 근사치라, 정밀도는 떨어집니다.",
+        },
     },
     {
         "kind": "yahoo", "sym": "^GSPC", "core": True,
         "name": "S&P 500", "unit": "",
-        "note": "보유 중인 지수추종의 기초자산.",
+        "note": "보유 중인 지수추종 ETF의 기초자산.",
         "trigger": None, "direction": None,
+        "guide": {
+            "what": "미국을 대표하는 500개 기업의 주가를 시가총액 비중으로 묶은 지수입니다. 'TIGER 미국S&P500' 같은 상품이 이 숫자를 그대로 따라갑니다.",
+            "read": "이게 오르면 보유 ETF도 오릅니다. 다만 환헤지형이 아니라면 <b>여기에 원/달러 움직임이 곱해집니다.</b> 지수가 1% 올라도 환율이 1% 떨어지면 수익은 거의 0입니다.",
+            "why": "선생님이 지금 실제로 들고 있는 유일한 주식 자산입니다. 다른 카드들이 '들어갈까 말까'를 보는 거라면, 이 카드는 '이미 들어가 있는 것'을 보는 자리입니다.",
+            "caution": "500개 기업이라 분산된 것 같지만, 시가총액 비중이라 상위 소수 기술기업이 지수의 상당 부분을 차지합니다. 이름만큼 넓게 분산되어 있지 않습니다.",
+        },
     },
 
     # ── 참고 ──
     {
         "kind": "yahoo", "sym": "^TNX", "core": False,
         "name": "미 10년 국채금리", "unit": "%",
-        "note": "30년물과 함께 커브 모양을 본다.",
+        "note": "30년물과 짝지어 커브 모양을 본다.",
         "trigger": None, "direction": None,
+        "guide": {
+            "what": "미국 정부가 10년 빌릴 때의 이자율입니다. 주택담보대출을 비롯한 세계 각종 대출금리의 기준이 됩니다.",
+            "read": "30년물 카드와 <b>빼서 보세요.</b> 30년물에서 10년물을 뺀 값이 커브의 기울기입니다. 보통 장기가 조금 더 높은 게 정상이고, 격차가 크게 벌어지면 시장이 먼 미래의 재정·물가 위험을 크게 보고 있다는 뜻입니다.",
+            "why": "금리 하나만 보면 '올랐다·내렸다'뿐이지만, 두 개를 비교하면 <b>왜 올랐는지</b>가 보입니다. 단기까지 같이 오르면 정책 문제, 장기만 오르면 재정·물가 문제에 가깝습니다.",
+            "caution": "장단기 금리 역전이 침체 신호로 유명하지만, 신호가 뜨고 실제 침체까지 6개월에서 2년까지 걸립니다. 매매 타이밍 도구로는 못 씁니다.",
+        },
     },
     {
         "kind": "yahoo", "sym": "SOXX", "core": False,
         "name": "미국 반도체 ETF (SOXX)", "unit": "$",
-        "note": "코스피와 대조. 미국 반도체는 멀쩡한데 한국만 빠지면 업황 문제가 아니다.",
+        "note": "코스피와 대조하면 업황 문제인지 한국 문제인지가 갈린다.",
         "trigger": None, "direction": None,
+        "guide": {
+            "what": "미국에 상장된 반도체 기업들을 묶은 ETF입니다. 엔비디아, AMD, 브로드컴 같은 설계·GPU 기업 비중이 큽니다.",
+            "read": "코스피 카드와 <b>같은 기간 변화율을 나란히</b> 놓고 보세요. 둘이 같이 빠지면 반도체 업황 자체의 문제이고, SOXX는 멀쩡한데 코스피만 빠지면 한국 시장 내부의 수급 문제입니다.",
+            "why": "한국 반도체(메모리·HBM)와 미국 반도체(설계·GPU)는 사업이 달라서 항상 같이 움직이지는 않습니다. 그 차이가 벌어질 때가 정보입니다.",
+            "caution": "SOXX와 코스피는 거래 시간이 달라서 하루 정도 시차가 납니다. 하루 단위로 비교하지 말고 5일·20일로 보세요.",
+        },
     },
     {
         "kind": "yahoo", "sym": "GC=F", "core": False,
         "name": "금 (온스당 달러)", "unit": "$",
-        "note": "실질금리와 역상관. 야후로는 실질금리를 못 받아서 금 가격으로 대신 본다.",
+        "note": "실질금리의 대용품. 지정학·통화 불안을 반영한다.",
         "trigger": None, "direction": None,
+        "guide": {
+            "what": "국제 금 선물 가격입니다. 트로이온스(약 31.1g)당 달러로 표시됩니다.",
+            "read": "금은 이자를 주지 않기 때문에, <b>금리가 낮을수록 유리</b>합니다. 이자 받을 기회를 포기하는 비용이 줄어드니까요. 그래서 실질금리(물가를 뺀 진짜 금리)와 반대로 움직이는 경향이 강합니다. 여기에 지정학 불안, 달러 약세, 각국 중앙은행 매입이 더해집니다.",
+            "why": "원래 넣으려던 실질금리 지표를 야후에서 못 받아서, 금 가격으로 간접 관찰합니다. 그리고 작년에 선생님이 금을 고른 판단의 근거가 정확히 이 논리였습니다.",
+            "caution": "금이 오르는 이유는 여러 개라, 가격만 보고는 어떤 이유인지 알 수 없습니다. 금리 카드, 환율 카드와 함께 봐야 해석이 됩니다.",
+        },
     },
     {
         "kind": "yahoo", "sym": "JPY=X", "core": False,
         "name": "엔/달러", "unit": "엔",
         "note": "엔캐리 청산은 한국 증시를 직격한 전례가 있다.",
         "trigger": None, "direction": None,
+        "guide": {
+            "what": "1달러를 사는 데 필요한 엔화입니다. 숫자가 올라가면 엔 약세, 내려가면 엔 강세입니다.",
+            "read": "완만한 움직임은 넘기셔도 됩니다. <b>단기간에 엔이 급격히 강세로 돌아설 때</b>(숫자가 빠르게 내려갈 때)만 주의하면 됩니다.",
+            "why": "일본은 오랫동안 금리가 매우 낮아서, 전 세계 투자자들이 싼 엔화를 빌려 다른 나라 자산을 사왔습니다. 이걸 엔캐리 트레이드라고 합니다. 그런데 엔이 갑자기 강해지면 빌린 돈을 갚는 비용이 커져서, 사둔 자산을 급히 팔아치웁니다. 이때 전 세계가 동시에 흔들립니다. 2024년 8월에 한국 증시가 이것 때문에 크게 무너진 적이 있습니다.",
+            "caution": "평소에는 볼 필요가 거의 없는 카드입니다. 다른 게 다 멀쩡한데 갑자기 세계 증시가 흔들릴 때, 원인 후보로 여기를 확인하는 용도입니다.",
+        },
     },
 ]
 
@@ -104,7 +164,6 @@ _cache = {}
 
 
 def yahoo_series(symbol, rng="1y"):
-    """야후 차트 API에서 (날짜, 종가) 목록을 받는다."""
     if symbol in _cache:
         return _cache[symbol]
 
@@ -135,12 +194,11 @@ def yahoo_series(symbol, rng="1y"):
         raise ValueError("종가가 전부 비어 있음")
 
     _cache[symbol] = out
-    time.sleep(0.6)   # 야후에 부담 주지 않기 위한 간격
+    time.sleep(0.6)
     return out
 
 
 def ratio_series(sym_a, sym_b):
-    """두 종목의 같은 날짜끼리 나눈 비율 시계열."""
     a = dict(yahoo_series(sym_a))
     b = dict(yahoo_series(sym_b))
     days = sorted(set(a) & set(b))
@@ -176,10 +234,7 @@ def summarize(series, cfg):
         return (last - prev) / abs(prev) * 100
 
     return {
-        **cfg,
-        "ok": True,
-        "date": date,
-        "last": last,
+        **cfg, "ok": True, "date": date, "last": last,
         "pct1": pct(d1), "pct5": pct(d5), "pct20": pct(d20),
         "hi52": max(vals) if vals else None,
         "lo52": min(vals) if vals else None,
@@ -192,10 +247,8 @@ def collect():
     out = []
     for cfg in METRICS:
         try:
-            if cfg["kind"] == "ratio":
-                series = ratio_series(*cfg["sym"])
-            else:
-                series = yahoo_series(cfg["sym"])
+            series = ratio_series(*cfg["sym"]) if cfg["kind"] == "ratio" \
+                else yahoo_series(cfg["sym"])
             out.append(summarize(series, cfg))
         except Exception as e:
             out.append({**cfg, "ok": False, "err": f"{type(e).__name__} {str(e)[:100]}"})
@@ -222,6 +275,59 @@ def pct_html(v):
     return f'<span class="d {cls}">{sign}{v:.1f}%</span>'
 
 
+def position_bar(last, lo, hi):
+    """52주 범위 안에서 지금 어디쯤인지 보여주는 막대."""
+    if None in (last, lo, hi) or hi == lo:
+        return ""
+    p = max(0, min(100, (last - lo) / (hi - lo) * 100))
+    return (f'<div class="posbar"><div class="posdot" style="left:{p:.1f}%"></div></div>'
+            f'<div class="poslb"><span>52주 최저 {fmt(lo)}</span>'
+            f'<span>범위 안 {p:.0f}% 지점</span>'
+            f'<span>최고 {fmt(hi)}</span></div>')
+
+
+def guide_html(g):
+    if not g:
+        return ""
+    return f"""<details class="guide">
+  <summary>설명 펼쳐보기</summary>
+  <div class="gbody">
+    <div class="gh">이게 뭔가</div><p>{g['what']}</p>
+    <div class="gh">어떻게 읽나</div><p>{g['read']}</p>
+    <div class="gh">왜 보는가</div><p>{g['why']}</p>
+    <div class="gh">주의할 점</div><p>{g['caution']}</p>
+  </div>
+</details>"""
+
+
+def card(m):
+    if not m.get("ok"):
+        return (f'<div class="card err"><div class="nm">{m["name"]}</div>'
+                f'<div class="note">데이터를 받지 못했습니다. {m.get("err","")}</div></div>')
+
+    trig = ""
+    if m.get("trigger") is not None:
+        arrow = "넘으면" if m["direction"] == "above" else "밑돌면"
+        state = "지금 점등됨" if m["lit"] else "아직 안 켜짐"
+        trig = (f'<div class="trig{" on" if m["lit"] else ""}">'
+                f'내가 정한 경보선 {fmt(m["trigger"])} {arrow} 점등 · {state}</div>')
+
+    return f"""<div class="card{' lit' if m.get('lit') else ''}">
+  <div class="top"><div class="nm">{m['name']}</div><div class="dt">{m['date']}</div></div>
+  <div class="val">{fmt(m['last'], m['unit'])}</div>
+  <div class="row">
+    <span class="lb">1일</span>{pct_html(m['pct1'])}
+    <span class="lb">5일</span>{pct_html(m['pct5'])}
+    <span class="lb">20일</span>{pct_html(m['pct20'])}
+  </div>
+  {spark(m['spark'], m.get('lit'))}
+  {position_bar(m['last'], m['lo52'], m['hi52'])}
+  {trig}
+  <div class="note">{m['note']}</div>
+  {guide_html(m.get('guide'))}
+</div>"""
+
+
 def spark(vals, lit):
     if not vals or len(vals) < 2:
         return ""
@@ -236,31 +342,28 @@ def spark(vals, lit):
             f'<polyline points="{pts}" fill="none" stroke="{color}" stroke-width="1.5"/></svg>')
 
 
-def card(m):
-    if not m.get("ok"):
-        return (f'<div class="card err"><div class="nm">{m["name"]}</div>'
-                f'<div class="note">데이터를 받지 못했습니다. {m.get("err","")}</div></div>')
+HOWTO = """<details class="howto">
+<summary>화면 읽는 법 (처음이면 여기부터)</summary>
+<div class="gbody">
+  <div class="gh">큰 숫자</div>
+  <p>가장 최근 종가입니다. 오른쪽 위 날짜가 그 값의 기준일입니다. 시장마다 휴장일이 달라 카드별로 날짜가 하루 이틀 다를 수 있습니다.</p>
 
-    trig = ""
-    if m.get("trigger") is not None:
-        arrow = "＞" if m["direction"] == "above" else "＜"
-        on = " 점등" if m["lit"] else ""
-        trig = (f'<div class="trig{" on" if m["lit"] else ""}">'
-                f'반증 조건 {arrow} {fmt(m["trigger"])}{on}</div>')
+  <div class="gh">1일 · 5일 · 20일</div>
+  <p>각각 하루 전, 일주일 전, 한 달 전과 비교한 변화율입니다. <b>하루 변동은 대부분 노이즈이니 20일 위주로 보세요.</b> 색은 방향만 나타냅니다. 빨강이 오름, 초록이 내림이며, 좋고 나쁨을 뜻하지 않습니다. VIX가 오르는 건 빨강이지만 좋은 소식이 아니고, 원/달러가 내리는 건 초록이지만 미국 ETF 보유자에게는 손해입니다.</p>
 
-    return f"""<div class="card{' lit' if m.get('lit') else ''}">
-  <div class="top"><div class="nm">{m['name']}</div><div class="dt">{m['date']}</div></div>
-  <div class="val">{fmt(m['last'], m['unit'])}</div>
-  <div class="row">
-    <span class="lb">1일</span>{pct_html(m['pct1'])}
-    <span class="lb">5일</span>{pct_html(m['pct5'])}
-    <span class="lb">20일</span>{pct_html(m['pct20'])}
-  </div>
-  {spark(m['spark'], m.get('lit'))}
-  <div class="rng">52주 {fmt(m['lo52'])} ~ {fmt(m['hi52'])}</div>
-  {trig}
-  <div class="note">{m['note']}</div>
-</div>"""
+  <div class="gh">가는 선 그래프</div>
+  <p>최근 60거래일(약 3개월)의 흐름입니다. 지금 값이 어떤 흐름 끝에 나온 건지 보라고 넣었습니다.</p>
+
+  <div class="gh">52주 위치 막대</div>
+  <p>지난 1년 최저와 최고 사이에서 지금 어디쯤인지입니다. 오른쪽 끝에 가까우면 1년 중 높은 편, 왼쪽이면 낮은 편입니다. 절대 숫자보다 이 위치가 감을 잡기 쉽습니다.</p>
+
+  <div class="gh">경보선</div>
+  <p>선생님이 미리 정해둔 선입니다. 값이 이 선을 넘으면 카드가 주황색으로 바뀌고 맨 위에 경고가 뜹니다. <b>예측이 아니라 약속입니다.</b> 미리 정해둔 조건이 켜졌을 때 감정이 아니라 기록에 따라 움직이기 위한 장치입니다. 숫자는 fetch.py 상단에서 바꿀 수 있습니다.</p>
+
+  <div class="gh">읽는 순서</div>
+  <p>① 맨 위 경고 배너가 있는지 → ② 핵심 6개의 20일 변화율만 훑기 → ③ 지난주와 달라진 게 있으면 그 카드의 설명 펼쳐보기. 매일 다 읽을 필요 없습니다. 주 1회 15분이면 충분합니다.</p>
+</div>
+</details>"""
 
 
 def render(metrics):
@@ -269,7 +372,8 @@ def render(metrics):
     banner = ""
     if lit:
         names = ", ".join(m["name"] for m in lit)
-        banner = f'<div class="banner">반증 조건 {len(lit)}개 점등 — {names}</div>'
+        banner = (f'<div class="banner"><b>경보선 {len(lit)}개 점등 — {names}</b><br>'
+                  f'미리 정해둔 조건이 켜졌습니다. 기록장의 해당 가설을 열어 점검하세요.</div>')
 
     core = "".join(card(m) for m in metrics if m.get("core"))
     ref = "".join(card(m) for m in metrics if not m.get("core"))
@@ -282,35 +386,48 @@ def render(metrics):
 <title>지표판</title>
 <style>
 *{{box-sizing:border-box;margin:0;padding:0}}
-body{{background:#0f172a;color:#e2e8f0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:16px;max-width:720px;margin:0 auto}}
-header{{border-bottom:1px solid #334155;padding-bottom:14px;margin-bottom:16px}}
+body{{background:#0f172a;color:#e2e8f0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:16px;max-width:720px;margin:0 auto;line-height:1.5}}
+header{{border-bottom:1px solid #334155;padding-bottom:14px;margin-bottom:14px}}
 h1{{font-size:20px;font-weight:600;letter-spacing:-.02em}}
 .eyebrow{{font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.15em;color:#64748b;text-transform:uppercase}}
 .stamp{{font-family:ui-monospace,monospace;font-size:11px;color:#64748b;margin-top:8px}}
-.banner{{background:#450a0a;border:1px solid #b91c1c;color:#fecaca;padding:10px 12px;border-radius:4px;font-size:13px;margin-bottom:16px}}
-.sect{{font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.15em;color:#64748b;text-transform:uppercase;margin:20px 0 10px}}
-.sect:first-of-type{{margin-top:0}}
+.banner{{background:#450a0a;border:1px solid #b91c1c;color:#fecaca;padding:11px 13px;border-radius:5px;font-size:13px;margin-bottom:14px}}
+.sect{{font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.15em;color:#64748b;text-transform:uppercase;margin:22px 0 10px}}
 .grid{{display:grid;gap:10px}}
 @media(min-width:560px){{.grid{{grid-template-columns:1fr 1fr}}}}
 .card{{background:#1e293b;border:1px solid #334155;border-radius:6px;padding:14px}}
 .card.lit{{border-color:#b45309;background:#221c14}}
 .card.err{{opacity:.5}}
 .top{{display:flex;justify-content:space-between;align-items:baseline;gap:8px}}
-.nm{{font-size:13px;color:#cbd5e1}}
+.nm{{font-size:13px;color:#cbd5e1;font-weight:600}}
 .dt{{font-family:ui-monospace,monospace;font-size:10px;color:#64748b}}
-.val{{font-family:ui-monospace,monospace;font-size:26px;font-weight:600;margin:6px 0 8px;letter-spacing:-.02em}}
+.val{{font-family:ui-monospace,monospace;font-size:26px;font-weight:600;margin:6px 0 8px;letter-spacing:-.02em;line-height:1.1}}
 .row{{display:flex;align-items:center;gap:6px;font-family:ui-monospace,monospace;font-size:11px;flex-wrap:wrap}}
 .lb{{color:#64748b}}
 .d{{margin-right:8px}}
 .d.up{{color:#f87171}}
 .d.down{{color:#4ade80}}
 .d.flat{{color:#64748b}}
-.spark{{width:100%;height:28px;margin:10px 0 6px;display:block}}
-.rng{{font-family:ui-monospace,monospace;font-size:10px;color:#64748b}}
-.trig{{font-family:ui-monospace,monospace;font-size:10px;color:#64748b;margin-top:6px;padding-top:6px;border-top:1px solid #334155}}
+.spark{{width:100%;height:28px;margin:10px 0 8px;display:block}}
+.posbar{{position:relative;height:3px;background:#334155;border-radius:2px;margin-top:4px}}
+.posdot{{position:absolute;top:-3px;width:9px;height:9px;border-radius:50%;background:#e2e8f0;transform:translateX(-50%)}}
+.poslb{{display:flex;justify-content:space-between;font-family:ui-monospace,monospace;font-size:9px;color:#64748b;margin-top:6px;gap:4px}}
+.trig{{font-family:ui-monospace,monospace;font-size:10px;color:#64748b;margin-top:9px;padding-top:8px;border-top:1px solid #334155;line-height:1.5}}
 .trig.on{{color:#fbbf24}}
-.note{{font-size:11px;color:#64748b;margin-top:6px;line-height:1.5}}
-footer{{margin-top:24px;padding-top:14px;border-top:1px solid #1e293b;font-size:11px;color:#475569;line-height:1.6}}
+.note{{font-size:11px;color:#94a3b8;margin-top:8px;line-height:1.6}}
+details{{margin-top:10px}}
+details summary{{cursor:pointer;font-size:11px;color:#7dd3fc;padding:6px 0;list-style:none;user-select:none}}
+details summary::-webkit-details-marker{{display:none}}
+details summary::before{{content:"▸ ";color:#64748b}}
+details[open] summary::before{{content:"▾ "}}
+.gbody{{border-left:2px solid #334155;padding-left:11px;margin-top:4px}}
+.gh{{font-size:10px;font-family:ui-monospace,monospace;letter-spacing:.1em;color:#64748b;text-transform:uppercase;margin-top:11px}}
+.gh:first-child{{margin-top:0}}
+.gbody p{{font-size:12px;color:#cbd5e1;line-height:1.75;margin-top:4px}}
+.gbody b{{color:#f8fafc}}
+.howto{{background:#1e293b;border:1px solid #334155;border-radius:6px;padding:12px 14px;margin-bottom:6px}}
+.howto summary{{font-size:12px;color:#7dd3fc}}
+footer{{margin-top:26px;padding-top:14px;border-top:1px solid #1e293b;font-size:11px;color:#475569;line-height:1.7}}
 </style></head><body>
 <header>
   <div class="eyebrow">Macro Panel</div>
@@ -318,14 +435,15 @@ footer{{margin-top:24px;padding-top:14px;border-top:1px solid #1e293b;font-size:
   <div class="stamp">갱신 {now} KST</div>
 </header>
 {banner}
-<div class="sect">핵심</div>
+{HOWTO}
+<div class="sect">핵심 — 판단에 쓰는 것</div>
 <div class="grid">{core}</div>
-<div class="sect">참고</div>
+<div class="sect">참고 — 배경으로 두는 것</div>
 <div class="grid">{ref}</div>
 <footer>
-변화율의 색은 방향만 나타냅니다. 빨강이 나쁘다는 뜻이 아닙니다.<br>
-반증 조건은 fetch.py 상단에서 고칠 수 있습니다.<br>
-출처 Yahoo Finance. 투자 판단과 책임은 본인에게 있습니다.
+지표를 많이 볼수록 좋아지지 않습니다. 20개를 보면 언제나 몇 개는 사라고 하고 몇 개는 팔라고 합니다.
+그래서 핵심을 6개로 고정했습니다.<br><br>
+출처 Yahoo Finance. 이 화면은 정보 정리 도구이며 투자 권유가 아닙니다. 판단과 책임은 본인에게 있습니다.
 </footer>
 </body></html>"""
 
