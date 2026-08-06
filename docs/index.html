@@ -6,43 +6,78 @@
 <title>지표판</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#0f172a;color:#e2e8f0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:16px;max-width:720px;margin:0 auto}
-header{border-bottom:1px solid #334155;padding-bottom:14px;margin-bottom:16px}
+body{background:#0f172a;color:#e2e8f0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:16px;max-width:720px;margin:0 auto;line-height:1.5}
+header{border-bottom:1px solid #334155;padding-bottom:14px;margin-bottom:14px}
 h1{font-size:20px;font-weight:600;letter-spacing:-.02em}
 .eyebrow{font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.15em;color:#64748b;text-transform:uppercase}
 .stamp{font-family:ui-monospace,monospace;font-size:11px;color:#64748b;margin-top:8px}
-.banner{background:#450a0a;border:1px solid #b91c1c;color:#fecaca;padding:10px 12px;border-radius:4px;font-size:13px;margin-bottom:16px}
-.sect{font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.15em;color:#64748b;text-transform:uppercase;margin:20px 0 10px}
-.sect:first-of-type{margin-top:0}
+.banner{background:#450a0a;border:1px solid #b91c1c;color:#fecaca;padding:11px 13px;border-radius:5px;font-size:13px;margin-bottom:14px}
+.sect{font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.15em;color:#64748b;text-transform:uppercase;margin:22px 0 10px}
 .grid{display:grid;gap:10px}
 @media(min-width:560px){.grid{grid-template-columns:1fr 1fr}}
 .card{background:#1e293b;border:1px solid #334155;border-radius:6px;padding:14px}
 .card.lit{border-color:#b45309;background:#221c14}
 .card.err{opacity:.5}
 .top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
-.nm{font-size:13px;color:#cbd5e1}
+.nm{font-size:13px;color:#cbd5e1;font-weight:600}
 .dt{font-family:ui-monospace,monospace;font-size:10px;color:#64748b}
-.val{font-family:ui-monospace,monospace;font-size:26px;font-weight:600;margin:6px 0 8px;letter-spacing:-.02em}
+.val{font-family:ui-monospace,monospace;font-size:26px;font-weight:600;margin:6px 0 8px;letter-spacing:-.02em;line-height:1.1}
 .row{display:flex;align-items:center;gap:6px;font-family:ui-monospace,monospace;font-size:11px;flex-wrap:wrap}
 .lb{color:#64748b}
 .d{margin-right:8px}
 .d.up{color:#f87171}
 .d.down{color:#4ade80}
 .d.flat{color:#64748b}
-.spark{width:100%;height:28px;margin:10px 0 6px;display:block}
-.rng{font-family:ui-monospace,monospace;font-size:10px;color:#64748b}
-.trig{font-family:ui-monospace,monospace;font-size:10px;color:#64748b;margin-top:6px;padding-top:6px;border-top:1px solid #334155}
+.spark{width:100%;height:28px;margin:10px 0 8px;display:block}
+.posbar{position:relative;height:3px;background:#334155;border-radius:2px;margin-top:4px}
+.posdot{position:absolute;top:-3px;width:9px;height:9px;border-radius:50%;background:#e2e8f0;transform:translateX(-50%)}
+.poslb{display:flex;justify-content:space-between;font-family:ui-monospace,monospace;font-size:9px;color:#64748b;margin-top:6px;gap:4px}
+.trig{font-family:ui-monospace,monospace;font-size:10px;color:#64748b;margin-top:9px;padding-top:8px;border-top:1px solid #334155;line-height:1.5}
 .trig.on{color:#fbbf24}
-.note{font-size:11px;color:#64748b;margin-top:6px;line-height:1.5}
-footer{margin-top:24px;padding-top:14px;border-top:1px solid #1e293b;font-size:11px;color:#475569;line-height:1.6}
+.note{font-size:11px;color:#94a3b8;margin-top:8px;line-height:1.6}
+details{margin-top:10px}
+details summary{cursor:pointer;font-size:11px;color:#7dd3fc;padding:6px 0;list-style:none;user-select:none}
+details summary::-webkit-details-marker{display:none}
+details summary::before{content:"▸ ";color:#64748b}
+details[open] summary::before{content:"▾ "}
+.gbody{border-left:2px solid #334155;padding-left:11px;margin-top:4px}
+.gh{font-size:10px;font-family:ui-monospace,monospace;letter-spacing:.1em;color:#64748b;text-transform:uppercase;margin-top:11px}
+.gh:first-child{margin-top:0}
+.gbody p{font-size:12px;color:#cbd5e1;line-height:1.75;margin-top:4px}
+.gbody b{color:#f8fafc}
+.howto{background:#1e293b;border:1px solid #334155;border-radius:6px;padding:12px 14px;margin-bottom:6px}
+.howto summary{font-size:12px;color:#7dd3fc}
+footer{margin-top:26px;padding-top:14px;border-top:1px solid #1e293b;font-size:11px;color:#475569;line-height:1.7}
 </style></head><body>
 <header>
   <div class="eyebrow">Macro Panel</div>
   <h1>지표판</h1>
-  <div class="stamp">갱신 2026-08-06 15:58 KST</div>
+  <div class="stamp">갱신 2026-08-06 16:10 KST</div>
 </header>
 
-<div class="sect">핵심</div>
+<details class="howto">
+<summary>화면 읽는 법 (처음이면 여기부터)</summary>
+<div class="gbody">
+  <div class="gh">큰 숫자</div>
+  <p>가장 최근 종가입니다. 오른쪽 위 날짜가 그 값의 기준일입니다. 시장마다 휴장일이 달라 카드별로 날짜가 하루 이틀 다를 수 있습니다.</p>
+
+  <div class="gh">1일 · 5일 · 20일</div>
+  <p>각각 하루 전, 일주일 전, 한 달 전과 비교한 변화율입니다. <b>하루 변동은 대부분 노이즈이니 20일 위주로 보세요.</b> 색은 방향만 나타냅니다. 빨강이 오름, 초록이 내림이며, 좋고 나쁨을 뜻하지 않습니다. VIX가 오르는 건 빨강이지만 좋은 소식이 아니고, 원/달러가 내리는 건 초록이지만 미국 ETF 보유자에게는 손해입니다.</p>
+
+  <div class="gh">가는 선 그래프</div>
+  <p>최근 60거래일(약 3개월)의 흐름입니다. 지금 값이 어떤 흐름 끝에 나온 건지 보라고 넣었습니다.</p>
+
+  <div class="gh">52주 위치 막대</div>
+  <p>지난 1년 최저와 최고 사이에서 지금 어디쯤인지입니다. 오른쪽 끝에 가까우면 1년 중 높은 편, 왼쪽이면 낮은 편입니다. 절대 숫자보다 이 위치가 감을 잡기 쉽습니다.</p>
+
+  <div class="gh">경보선</div>
+  <p>선생님이 미리 정해둔 선입니다. 값이 이 선을 넘으면 카드가 주황색으로 바뀌고 맨 위에 경고가 뜹니다. <b>예측이 아니라 약속입니다.</b> 미리 정해둔 조건이 켜졌을 때 감정이 아니라 기록에 따라 움직이기 위한 장치입니다. 숫자는 fetch.py 상단에서 바꿀 수 있습니다.</p>
+
+  <div class="gh">읽는 순서</div>
+  <p>① 맨 위 경고 배너가 있는지 → ② 핵심 6개의 20일 변화율만 훑기 → ③ 지난주와 달라진 게 있으면 그 카드의 설명 펼쳐보기. 매일 다 읽을 필요 없습니다. 주 1회 15분이면 충분합니다.</p>
+</div>
+</details>
+<div class="sect">핵심 — 판단에 쓰는 것</div>
 <div class="grid"><div class="card">
   <div class="top"><div class="nm">VIX (미국 변동성)</div><div class="dt">2026-08-05</div></div>
   <div class="val">15.81</div>
@@ -52,9 +87,18 @@ footer{margin-top:24px;padding-top:14px;border-top:1px solid #1e293b;font-size:1
     <span class="lb">20일</span><span class="d down">-6.4%</span>
   </div>
   <svg class="spark" viewBox="0 0 120 28" preserveAspectRatio="none"><polyline points="0.0,16.5 2.0,16.9 4.1,19.3 6.1,14.8 8.1,17.1 10.2,16.2 12.2,18.6 14.2,21.3 16.3,21.5 18.3,21.9 20.3,20.3 22.4,23.1 24.4,25.2 26.4,26.9 28.5,24.0 30.5,25.1 32.5,24.0 34.6,26.6 36.6,2.8 38.6,12.9 40.7,9.2 42.7,0.0 44.7,10.8 46.8,17.7 48.8,23.4 50.8,22.6 52.9,14.7 54.9,22.7 56.9,19.2 59.0,10.6 61.0,14.0 63.1,13.0 65.1,14.8 67.1,17.8 69.2,22.5 71.2,21.9 73.2,23.6 75.3,25.9 77.3,23.7 79.3,20.7 81.4,24.8 83.4,28.0 85.4,19.7 87.5,22.3 89.5,25.5 91.5,21.4 93.6,13.4 95.6,13.9 97.6,20.1 99.7,21.7 101.7,13.7 103.7,14.2 105.8,13.8 107.8,15.6 109.8,6.1 111.9,20.0 113.9,24.3 115.9,24.8 118.0,22.3 120.0,25.0" fill="none" stroke="#64748b" stroke-width="1.5"/></svg>
-  <div class="rng">52주 13.47 ~ 31.05</div>
-  <div class="trig">반증 조건 ＞ 25.00</div>
-  <div class="note">코스피 카드와 대조할 것. 미국이 조용한데 한국만 흔들리면 업황이 아니라 수급 문제다.</div>
+  <div class="posbar"><div class="posdot" style="left:13.3%"></div></div><div class="poslb"><span>52주 최저 13.47</span><span>범위 안 13% 지점</span><span>최고 31.05</span></div>
+  <div class="trig">내가 정한 경보선 25.00 넘으면 점등 · 아직 안 켜짐</div>
+  <div class="note">미국 시장의 체온계. 코스피 카드와 나란히 볼 것.</div>
+  <details class="guide">
+  <summary>설명 펼쳐보기</summary>
+  <div class="gbody">
+    <div class="gh">이게 뭔가</div><p>미국 S&P500 옵션 가격에서 뽑아낸 '앞으로 30일간 예상되는 출렁임의 크기'입니다. 흔히 공포지수라고 부릅니다. 주가가 아니라 <b>불안의 양</b>을 재는 숫자입니다.</p>
+    <div class="gh">어떻게 읽나</div><p>대략 12~20이면 평온, 20~30이면 경계, 30을 넘으면 패닉, 40 이상은 위기 국면입니다. 오른다고 주가가 반드시 떨어지는 건 아니지만, 큰 하락은 거의 항상 VIX 급등을 동반합니다.</p>
+    <div class="gh">왜 보는가</div><p>이 판에서 VIX의 역할은 <b>대조군</b>입니다. 미국이 조용한데(VIX 낮음) 한국만 크게 흔들린다면, 그건 세계적인 문제가 아니라 한국 시장 안에서 벌어지는 일이라는 뜻입니다. 반도체 업황 걱정인지 국내 수급 문제인지를 가르는 첫 갈림길입니다.</p>
+    <div class="gh">주의할 점</div><p>VIX가 낮다고 안전한 게 아닙니다. 오히려 시장이 방심하고 있다는 뜻이기도 하고, 급락은 대개 VIX가 낮은 상태에서 시작됩니다. 낮은 VIX는 '지금 조용하다'이지 '앞으로 조용할 것이다'가 아닙니다.</p>
+  </div>
+</details>
 </div><div class="card">
   <div class="top"><div class="nm">코스피</div><div class="dt">2026-08-06</div></div>
   <div class="val">6,296</div>
@@ -64,9 +108,18 @@ footer{margin-top:24px;padding-top:14px;border-top:1px solid #1e293b;font-size:1
     <span class="lb">20일</span><span class="d down">-13.1%</span>
   </div>
   <svg class="spark" viewBox="0 0 120 28" preserveAspectRatio="none"><polyline points="0.0,11.7 2.0,10.1 4.1,9.0 6.1,12.9 8.1,12.7 10.2,14.7 12.2,15.2 14.2,10.3 16.3,10.1 18.3,8.5 20.3,7.0 22.4,7.4 24.4,5.1 26.4,2.6 28.5,2.5 30.5,3.8 32.5,7.6 34.6,13.0 36.6,8.1 38.6,11.0 40.7,10.7 42.7,7.9 44.7,4.5 46.8,3.1 48.8,2.0 50.8,0.4 52.9,0.5 54.9,0.0 56.9,7.2 59.0,5.1 61.0,1.5 63.1,5.6 65.1,5.7 67.1,5.1 69.2,6.5 71.2,11.7 73.2,8.2 75.3,8.5 77.3,11.6 79.3,14.9 81.4,14.5 83.4,13.0 85.4,18.4 87.5,18.0 89.5,14.6 91.5,18.2 93.6,20.7 95.6,18.8 97.6,18.4 99.7,16.0 101.7,19.3 103.7,18.8 105.8,24.6 107.8,27.4 109.8,28.0 111.9,20.0 113.9,22.7 115.9,21.9 118.0,20.0 120.0,22.4" fill="none" stroke="#64748b" stroke-width="1.5"/></svg>
-  <div class="rng">52주 3,130 ~ 9,115</div>
+  <div class="posbar"><div class="posdot" style="left:52.9%"></div></div><div class="poslb"><span>52주 최저 3,130</span><span>범위 안 53% 지점</span><span>최고 9,115</span></div>
   
-  <div class="note">VIX와 나란히 볼 것. 둘의 괴리가 한국 고유 리스크의 크기다.</div>
+  <div class="note">한국 시장 전체의 체온. VIX와의 괴리가 한국 고유 리스크의 크기다.</div>
+  <details class="guide">
+  <summary>설명 펼쳐보기</summary>
+  <div class="gbody">
+    <div class="gh">이게 뭔가</div><p>한국 유가증권시장에 상장된 주식 전체의 시가총액을 지수로 만든 값입니다. 1980년 1월 4일을 100으로 잡고 계산합니다.</p>
+    <div class="gh">어떻게 읽나</div><p>절대 숫자보다 <b>52주 범위 안에서 지금 어디쯤인지</b>를 보세요. 카드 아래 '52주 최저 ~ 최고'가 그 범위입니다. 고점 근처면 기대가 많이 반영된 상태, 저점 근처면 공포가 반영된 상태입니다. 20일 변화율이 ±10%를 넘으면 상당히 큰 움직임입니다.</p>
+    <div class="gh">왜 보는가</div><p>선생님이 지금 진입을 보류 중인 시장이 여기입니다. VIX와 함께 보면 '한국만의 문제인가'가 판별됩니다.</p>
+    <div class="gh">주의할 점</div><p>코스피는 삼성전자와 SK하이닉스의 비중이 지나치게 커서, 사실상 반도체 지수에 가깝습니다. 코스피가 올랐다고 한국 경제 전체가 좋아진 게 아니고, 국내 ETF로 분산했다고 생각해도 결국 이 두 종목에 걸려 있는 경우가 많습니다.</p>
+  </div>
+</details>
 </div><div class="card">
   <div class="top"><div class="nm">미 30년 국채금리</div><div class="dt">2026-08-05</div></div>
   <div class="val">5.17%</div>
@@ -76,21 +129,39 @@ footer{margin-top:24px;padding-top:14px;border-top:1px solid #1e293b;font-size:1
     <span class="lb">20일</span><span class="d up">+2.2%</span>
   </div>
   <svg class="spark" viewBox="0 0 120 28" preserveAspectRatio="none"><polyline points="0.0,19.3 2.0,16.3 4.1,15.2 6.1,17.6 8.1,9.8 10.2,8.6 12.2,6.3 14.2,10.6 16.3,10.9 18.3,14.1 20.3,16.6 22.4,17.6 24.4,19.4 26.4,18.8 28.5,19.0 30.5,20.6 32.5,19.0 34.6,19.8 36.6,18.4 38.6,16.8 40.7,17.6 42.7,16.7 44.7,21.7 46.8,20.0 48.8,20.3 50.8,23.2 52.9,23.3 54.9,25.0 56.9,21.9 59.0,22.4 61.0,28.0 63.1,27.9 65.1,27.5 67.1,27.7 69.2,24.9 71.2,20.6 73.2,19.4 75.3,18.8 77.3,15.5 79.3,14.0 81.4,14.8 83.4,13.6 85.4,11.8 87.5,12.1 89.5,12.8 91.5,11.8 93.6,14.1 95.6,10.5 97.6,9.7 99.7,8.6 101.7,6.9 103.7,7.6 105.8,10.0 107.8,12.0 109.8,8.8 111.9,4.5 113.9,0.0 115.9,2.9 118.0,5.7 120.0,6.7" fill="none" stroke="#64748b" stroke-width="1.5"/></svg>
-  <div class="rng">52주 4.54 ~ 5.28</div>
-  <div class="trig">반증 조건 ＞ 5.28</div>
-  <div class="note">5.28% 상향 돌파 후 고착이 가설 #1의 반증 조건. 성장주 할인율의 뿌리.</div>
+  <div class="posbar"><div class="posdot" style="left:86.3%"></div></div><div class="poslb"><span>52주 최저 4.54</span><span>범위 안 86% 지점</span><span>최고 5.28</span></div>
+  <div class="trig">내가 정한 경보선 5.28 넘으면 점등 · 아직 안 켜짐</div>
+  <div class="note">모든 자산 가격의 기준선. 가설 #1의 반증 조건이 여기 걸려 있다.</div>
+  <details class="guide">
+  <summary>설명 펼쳐보기</summary>
+  <div class="gbody">
+    <div class="gh">이게 뭔가</div><p>미국 정부가 30년 동안 돈을 빌리면서 내는 이자율입니다. 세상에서 가장 안전하다고 여겨지는 자산의 수익률이라, 다른 모든 투자의 <b>비교 기준</b>이 됩니다.</p>
+    <div class="gh">어떻게 읽나</div><p>이 숫자가 오르면 주식에 불리합니다. 왜냐하면 '아무 위험 없이 5%를 받을 수 있는데, 굳이 위험한 주식을 왜 사나'가 되기 때문입니다. 특히 먼 미래의 이익을 기대하고 사는 성장주·기술주가 크게 흔들립니다.</p>
+    <div class="gh">왜 보는가</div><p>지금 반증 조건이 5.28%로 걸려 있습니다. 2026년 7월에 19년 만의 최고치로 찍었던 수치입니다. 이 선을 다시 넘어 눌러앉으면, AI·반도체 같은 성장 테마에 계속 역풍이 붑니다.</p>
+    <div class="gh">주의할 점</div><p>하루 0.05%p 움직임도 채권시장에서는 큰 사건입니다. 주식처럼 몇 % 단위로 생각하면 감이 안 잡히니, 변화율보다 <b>절대 수치가 어디에 있는지</b>를 보세요.</p>
+  </div>
+</details>
 </div><div class="card">
   <div class="top"><div class="nm">원/달러</div><div class="dt">2026-08-06</div></div>
-  <div class="val">1,426원</div>
+  <div class="val">1,425원</div>
   <div class="row">
-    <span class="lb">1일</span><span class="d down">-0.1%</span>
-    <span class="lb">5일</span><span class="d down">-1.1%</span>
-    <span class="lb">20일</span><span class="d down">-5.1%</span>
+    <span class="lb">1일</span><span class="d down">-0.3%</span>
+    <span class="lb">5일</span><span class="d down">-1.2%</span>
+    <span class="lb">20일</span><span class="d down">-5.2%</span>
   </div>
-  <svg class="spark" viewBox="0 0 120 28" preserveAspectRatio="none"><polyline points="0.0,12.8 2.0,12.0 4.1,13.0 6.1,9.8 8.1,11.4 10.2,10.5 12.2,8.7 14.2,8.3 16.3,10.3 18.3,10.7 20.3,12.4 22.4,10.0 24.4,9.0 26.4,7.9 28.5,5.1 30.5,4.5 32.5,0.0 34.6,5.4 36.6,6.0 38.6,6.2 40.7,7.8 42.7,9.4 44.7,8.6 46.8,9.1 48.8,6.1 50.8,3.5 52.9,4.8 54.9,3.2 56.9,4.0 59.0,2.5 61.0,1.7 63.1,4.0 65.1,2.7 67.1,1.2 69.2,0.6 71.2,2.6 73.2,4.9 75.3,5.4 77.3,7.2 79.3,10.7 81.4,10.2 83.4,11.7 85.4,11.9 87.5,13.9 89.5,14.3 91.5,15.8 93.6,14.0 95.6,16.6 97.6,15.6 99.7,16.5 101.7,16.8 103.7,20.2 105.8,18.8 107.8,21.2 109.8,23.5 111.9,28.0 113.9,24.8 115.9,26.3 118.0,26.4 120.0,26.8" fill="none" stroke="#64748b" stroke-width="1.5"/></svg>
-  <div class="rng">52주 1,378 ~ 1,554</div>
-  <div class="trig">반증 조건 ＞ 1,450</div>
-  <div class="note">급등하면 외국인 이탈 압력. 환노출 ETF 수익률도 여기 걸린다.</div>
+  <svg class="spark" viewBox="0 0 120 28" preserveAspectRatio="none"><polyline points="0.0,12.8 2.0,12.0 4.1,13.0 6.1,9.8 8.1,11.4 10.2,10.5 12.2,8.7 14.2,8.3 16.3,10.3 18.3,10.7 20.3,12.4 22.4,10.0 24.4,9.0 26.4,7.9 28.5,5.1 30.5,4.5 32.5,0.0 34.6,5.4 36.6,6.0 38.6,6.2 40.7,7.8 42.7,9.4 44.7,8.6 46.8,9.1 48.8,6.1 50.8,3.5 52.9,4.8 54.9,3.2 56.9,4.0 59.0,2.5 61.0,1.7 63.1,4.0 65.1,2.7 67.1,1.2 69.2,0.6 71.2,2.6 73.2,4.9 75.3,5.4 77.3,7.2 79.3,10.7 81.4,10.2 83.4,11.7 85.4,11.9 87.5,13.9 89.5,14.3 91.5,15.8 93.6,14.0 95.6,16.6 97.6,15.6 99.7,16.5 101.7,16.8 103.7,20.2 105.8,18.8 107.8,21.2 109.8,23.5 111.9,28.0 113.9,24.8 115.9,26.3 118.0,26.4 120.0,27.1" fill="none" stroke="#64748b" stroke-width="1.5"/></svg>
+  <div class="posbar"><div class="posdot" style="left:26.7%"></div></div><div class="poslb"><span>52주 최저 1,378</span><span>범위 안 27% 지점</span><span>최고 1,554</span></div>
+  <div class="trig">내가 정한 경보선 1,450 넘으면 점등 · 아직 안 켜짐</div>
+  <div class="note">외국인 수급과 보유 ETF 수익률에 동시에 걸리는 숫자.</div>
+  <details class="guide">
+  <summary>설명 펼쳐보기</summary>
+  <div class="gbody">
+    <div class="gh">이게 뭔가</div><p>1달러를 사는 데 필요한 원화입니다. 숫자가 <b>올라가면 원화 약세</b>(원화 가치 하락), 내려가면 원화 강세입니다.</p>
+    <div class="gh">어떻게 읽나</div><p>대략 1,300원 아래면 원화 강세권, 1,400원대면 약세, 1,500원을 넘으면 위기 신호로 봅니다.</p>
+    <div class="gh">왜 보는가</div><p>두 가지로 걸립니다. 첫째, 외국인 투자자는 한국에서 번 원화를 달러로 바꿔 가져가는데, 환율이 오르면 주가가 올라도 손해라 팔고 나갑니다. 둘째, 보유 중인 <b>국내 상장 미국 ETF가 환헤지형이 아니라면</b> 환율이 내려갈 때 지수가 올라도 수익이 깎입니다.</p>
+    <div class="gh">주의할 점</div><p>환율은 방향이 '좋다·나쁘다'로 딱 갈리지 않습니다. 수출기업에는 오르는 게 유리하고, 미국 자산을 원화로 사둔 사람에게도 오르는 게 유리합니다. 반대로 외국인 수급에는 불리합니다. 누구 입장에서 보는지를 먼저 정해야 합니다.</p>
+  </div>
+</details>
 </div><div class="card">
   <div class="top"><div class="nm">신용 스트레스 (HYG/IEF)</div><div class="dt">2026-08-05</div></div>
   <div class="val">0.85</div>
@@ -100,9 +171,18 @@ footer{margin-top:24px;padding-top:14px;border-top:1px solid #1e293b;font-size:1
     <span class="lb">20일</span><span class="d up">+0.0%</span>
   </div>
   <svg class="spark" viewBox="0 0 120 28" preserveAspectRatio="none"><polyline points="0.0,18.6 2.0,15.4 4.1,14.6 6.1,14.8 8.1,9.9 10.2,7.7 12.2,5.3 14.2,5.9 16.3,6.1 18.3,7.2 20.3,8.6 22.4,10.3 24.4,12.0 26.4,12.3 28.5,13.5 30.5,13.5 32.5,13.8 34.6,12.9 36.6,12.4 38.6,8.5 40.7,11.3 42.7,12.8 44.7,14.4 46.8,11.7 48.8,11.4 50.8,15.6 52.9,13.2 54.9,13.3 56.9,8.7 59.0,12.1 61.0,22.7 63.1,23.1 65.1,28.0 67.1,25.0 69.2,17.6 71.2,16.1 73.2,15.2 75.3,13.1 77.3,7.2 79.3,6.0 81.4,7.6 83.4,7.0 85.4,5.0 87.5,6.2 89.5,7.5 91.5,6.7 93.6,11.7 95.6,6.1 97.6,2.8 99.7,1.8 101.7,3.3 103.7,6.4 105.8,9.8 107.8,11.6 109.8,8.6 111.9,4.6 113.9,0.0 115.9,1.2 118.0,3.7 120.0,5.3" fill="none" stroke="#64748b" stroke-width="1.5"/></svg>
-  <div class="rng">52주 0.82 ~ 0.86</div>
+  <div class="posbar"><div class="posdot" style="left:90.8%"></div></div><div class="poslb"><span>52주 최저 0.82</span><span>범위 안 91% 지점</span><span>최고 0.86</span></div>
   
-  <div class="note">하이일드 ETF ÷ 국채 ETF. 내려갈수록 신용 경계. 주식보다 먼저 움직이는 경우가 많다.</div>
+  <div class="note">채권시장의 경계심. 주식보다 먼저 움직이는 경우가 많다.</div>
+  <details class="guide">
+  <summary>설명 펼쳐보기</summary>
+  <div class="gbody">
+    <div class="gh">이게 뭔가</div><p>신용도가 낮은 회사들의 채권 ETF(HYG)를, 안전한 미국 국채 ETF(IEF)로 나눈 값입니다. 두 가격의 비율이라 단위가 없습니다.</p>
+    <div class="gh">어떻게 읽나</div><p><b>절대 숫자 0.85 자체에는 아무 의미가 없습니다. 방향만 보세요.</b> 내려가면 투자자들이 위험한 채권을 팔고 안전한 국채로 옮겨가는 중이라는 뜻이고, 이건 경계심이 커지고 있다는 신호입니다. 올라가면 반대입니다.</p>
+    <div class="gh">왜 보는가</div><p>채권시장은 주식시장보다 겁이 많습니다. 신용 경계가 먼저 올라가고 주식이 나중에 빠지는 경우가 자주 관찰됩니다. 그래서 주식만 보고 있으면 놓치는 신호가 여기서 먼저 잡힙니다.</p>
+    <div class="gh">주의할 점</div><p>하루하루 변동은 대부분 노이즈입니다. <b>20일 변화율</b>만 보시고, 그것도 -1% 이상 빠질 때만 의미 있게 받아들이세요. 원래 지표(하이일드 스프레드)를 못 쓰게 되어 대신 쓰는 근사치라, 정밀도는 떨어집니다.</p>
+  </div>
+</details>
 </div><div class="card">
   <div class="top"><div class="nm">S&P 500</div><div class="dt">2026-08-05</div></div>
   <div class="val">7,724</div>
@@ -112,11 +192,20 @@ footer{margin-top:24px;padding-top:14px;border-top:1px solid #1e293b;font-size:1
     <span class="lb">20일</span><span class="d up">+3.2%</span>
   </div>
   <svg class="spark" viewBox="0 0 120 28" preserveAspectRatio="none"><polyline points="0.0,19.3 2.0,20.0 4.1,17.4 6.1,14.0 8.1,19.6 10.2,19.9 12.2,22.8 14.2,18.1 16.3,17.3 18.3,15.7 20.3,13.0 22.4,12.9 24.4,10.3 26.4,9.3 28.5,8.1 30.5,7.6 32.5,10.9 34.6,9.1 36.6,21.0 38.6,19.7 40.7,20.9 42.7,28.0 44.7,20.4 46.8,18.2 48.8,10.9 50.8,13.4 52.9,18.9 54.9,14.1 56.9,15.7 59.0,22.1 61.0,22.6 63.1,22.6 65.1,22.8 67.1,17.7 69.2,14.1 71.2,15.1 73.2,15.1 75.3,11.9 77.3,13.9 79.3,15.1 81.4,11.5 83.4,9.6 85.4,13.2 87.5,11.5 89.5,9.8 91.5,12.1 93.6,16.6 95.6,17.5 97.6,13.6 99.7,14.2 101.7,19.6 103.7,19.4 105.8,19.3 107.8,18.4 109.8,25.1 111.9,17.8 113.9,14.7 115.9,8.1 118.0,0.0 120.0,0.8" fill="none" stroke="#64748b" stroke-width="1.5"/></svg>
-  <div class="rng">52주 6,340 ~ 7,737</div>
+  <div class="posbar"><div class="posdot" style="left:99.1%"></div></div><div class="poslb"><span>52주 최저 6,340</span><span>범위 안 99% 지점</span><span>최고 7,737</span></div>
   
-  <div class="note">보유 중인 지수추종의 기초자산.</div>
+  <div class="note">보유 중인 지수추종 ETF의 기초자산.</div>
+  <details class="guide">
+  <summary>설명 펼쳐보기</summary>
+  <div class="gbody">
+    <div class="gh">이게 뭔가</div><p>미국을 대표하는 500개 기업의 주가를 시가총액 비중으로 묶은 지수입니다. 'TIGER 미국S&P500' 같은 상품이 이 숫자를 그대로 따라갑니다.</p>
+    <div class="gh">어떻게 읽나</div><p>이게 오르면 보유 ETF도 오릅니다. 다만 환헤지형이 아니라면 <b>여기에 원/달러 움직임이 곱해집니다.</b> 지수가 1% 올라도 환율이 1% 떨어지면 수익은 거의 0입니다.</p>
+    <div class="gh">왜 보는가</div><p>선생님이 지금 실제로 들고 있는 유일한 주식 자산입니다. 다른 카드들이 '들어갈까 말까'를 보는 거라면, 이 카드는 '이미 들어가 있는 것'을 보는 자리입니다.</p>
+    <div class="gh">주의할 점</div><p>500개 기업이라 분산된 것 같지만, 시가총액 비중이라 상위 소수 기술기업이 지수의 상당 부분을 차지합니다. 이름만큼 넓게 분산되어 있지 않습니다.</p>
+  </div>
+</details>
 </div></div>
-<div class="sect">참고</div>
+<div class="sect">참고 — 배경으로 두는 것</div>
 <div class="grid"><div class="card">
   <div class="top"><div class="nm">미 10년 국채금리</div><div class="dt">2026-08-05</div></div>
   <div class="val">4.62%</div>
@@ -126,9 +215,18 @@ footer{margin-top:24px;padding-top:14px;border-top:1px solid #1e293b;font-size:1
     <span class="lb">20일</span><span class="d up">+1.1%</span>
   </div>
   <svg class="spark" viewBox="0 0 120 28" preserveAspectRatio="none"><polyline points="0.0,25.1 2.0,21.2 4.1,19.8 6.1,21.3 8.1,11.3 10.2,9.2 12.2,5.9 14.2,13.0 16.3,11.9 18.3,14.0 20.3,18.9 22.4,19.8 24.4,21.8 26.4,21.9 28.5,20.3 30.5,21.8 32.5,19.1 34.6,20.1 36.6,15.7 38.6,14.5 40.7,16.3 42.7,15.2 44.7,21.2 46.8,19.4 48.8,20.7 50.8,23.8 52.9,21.2 54.9,22.1 56.9,17.7 59.0,18.9 61.0,25.7 63.1,26.5 65.1,28.0 67.1,27.8 69.2,24.5 71.2,20.3 73.2,19.5 75.3,20.0 77.3,16.2 79.3,13.2 81.4,15.5 83.4,13.2 85.4,10.2 87.5,12.0 89.5,15.0 91.5,13.2 93.6,15.3 95.6,11.0 97.6,8.8 99.7,6.6 101.7,3.2 103.7,5.0 105.8,7.8 107.8,10.6 109.8,9.2 111.9,6.2 113.9,0.0 115.9,4.4 118.0,8.9 120.0,9.6" fill="none" stroke="#64748b" stroke-width="1.5"/></svg>
-  <div class="rng">52주 3.95 ~ 4.74</div>
+  <div class="posbar"><div class="posdot" style="left:83.8%"></div></div><div class="poslb"><span>52주 최저 3.95</span><span>범위 안 84% 지점</span><span>최고 4.74</span></div>
   
-  <div class="note">30년물과 함께 커브 모양을 본다.</div>
+  <div class="note">30년물과 짝지어 커브 모양을 본다.</div>
+  <details class="guide">
+  <summary>설명 펼쳐보기</summary>
+  <div class="gbody">
+    <div class="gh">이게 뭔가</div><p>미국 정부가 10년 빌릴 때의 이자율입니다. 주택담보대출을 비롯한 세계 각종 대출금리의 기준이 됩니다.</p>
+    <div class="gh">어떻게 읽나</div><p>30년물 카드와 <b>빼서 보세요.</b> 30년물에서 10년물을 뺀 값이 커브의 기울기입니다. 보통 장기가 조금 더 높은 게 정상이고, 격차가 크게 벌어지면 시장이 먼 미래의 재정·물가 위험을 크게 보고 있다는 뜻입니다.</p>
+    <div class="gh">왜 보는가</div><p>금리 하나만 보면 '올랐다·내렸다'뿐이지만, 두 개를 비교하면 <b>왜 올랐는지</b>가 보입니다. 단기까지 같이 오르면 정책 문제, 장기만 오르면 재정·물가 문제에 가깝습니다.</p>
+    <div class="gh">주의할 점</div><p>장단기 금리 역전이 침체 신호로 유명하지만, 신호가 뜨고 실제 침체까지 6개월에서 2년까지 걸립니다. 매매 타이밍 도구로는 못 씁니다.</p>
+  </div>
+</details>
 </div><div class="card">
   <div class="top"><div class="nm">미국 반도체 ETF (SOXX)</div><div class="dt">2026-08-05</div></div>
   <div class="val">530.7$</div>
@@ -138,37 +236,64 @@ footer{margin-top:24px;padding-top:14px;border-top:1px solid #1e293b;font-size:1
     <span class="lb">20일</span><span class="d down">-5.6%</span>
   </div>
   <svg class="spark" viewBox="0 0 120 28" preserveAspectRatio="none"><polyline points="0.0,18.0 2.0,20.5 4.1,18.7 6.1,18.4 8.1,21.6 10.2,23.5 12.2,23.3 14.2,19.8 16.3,19.2 18.3,17.3 20.3,12.5 22.4,13.4 24.4,12.6 26.4,12.7 28.5,12.2 30.5,7.4 32.5,5.8 34.6,7.7 36.6,17.0 38.6,12.3 40.7,13.7 42.7,16.7 44.7,10.0 46.8,8.7 48.8,3.9 50.8,9.4 52.9,8.1 54.9,2.3 56.9,0.0 59.0,7.6 61.0,7.9 63.1,4.4 65.1,9.6 67.1,6.0 69.2,2.1 71.2,8.2 73.2,13.1 75.3,10.8 77.3,15.2 79.3,13.7 81.4,10.8 83.4,10.9 85.4,14.9 87.5,12.8 89.5,14.7 91.5,18.3 93.6,19.6 95.6,19.3 97.6,15.1 99.7,14.7 101.7,15.3 103.7,18.9 105.8,20.5 107.8,24.1 109.8,28.0 111.9,22.2 113.9,22.1 115.9,21.7 118.0,16.6 120.0,18.3" fill="none" stroke="#64748b" stroke-width="1.5"/></svg>
-  <div class="rng">52주 240.8 ~ 655.0</div>
+  <div class="posbar"><div class="posdot" style="left:70.0%"></div></div><div class="poslb"><span>52주 최저 240.8</span><span>범위 안 70% 지점</span><span>최고 655.0</span></div>
   
-  <div class="note">코스피와 대조. 미국 반도체는 멀쩡한데 한국만 빠지면 업황 문제가 아니다.</div>
+  <div class="note">코스피와 대조하면 업황 문제인지 한국 문제인지가 갈린다.</div>
+  <details class="guide">
+  <summary>설명 펼쳐보기</summary>
+  <div class="gbody">
+    <div class="gh">이게 뭔가</div><p>미국에 상장된 반도체 기업들을 묶은 ETF입니다. 엔비디아, AMD, 브로드컴 같은 설계·GPU 기업 비중이 큽니다.</p>
+    <div class="gh">어떻게 읽나</div><p>코스피 카드와 <b>같은 기간 변화율을 나란히</b> 놓고 보세요. 둘이 같이 빠지면 반도체 업황 자체의 문제이고, SOXX는 멀쩡한데 코스피만 빠지면 한국 시장 내부의 수급 문제입니다.</p>
+    <div class="gh">왜 보는가</div><p>한국 반도체(메모리·HBM)와 미국 반도체(설계·GPU)는 사업이 달라서 항상 같이 움직이지는 않습니다. 그 차이가 벌어질 때가 정보입니다.</p>
+    <div class="gh">주의할 점</div><p>SOXX와 코스피는 거래 시간이 달라서 하루 정도 시차가 납니다. 하루 단위로 비교하지 말고 5일·20일로 보세요.</p>
+  </div>
+</details>
 </div><div class="card">
   <div class="top"><div class="nm">금 (온스당 달러)</div><div class="dt">2026-08-06</div></div>
-  <div class="val">4,315$</div>
+  <div class="val">4,314$</div>
   <div class="row">
     <span class="lb">1일</span><span class="d up">+1.6%</span>
     <span class="lb">5일</span><span class="d up">+5.2%</span>
-    <span class="lb">20일</span><span class="d up">+4.5%</span>
+    <span class="lb">20일</span><span class="d up">+4.4%</span>
   </div>
-  <svg class="spark" viewBox="0 0 120 28" preserveAspectRatio="none"><polyline points="0.0,0.8 2.0,0.0 4.1,0.8 6.1,5.6 8.1,5.7 10.2,7.5 12.2,6.5 14.2,6.2 16.3,6.9 18.3,7.8 20.3,9.8 22.4,7.8 24.4,5.4 26.4,8.7 28.5,8.2 30.5,10.3 32.5,8.7 34.6,14.2 36.6,14.2 38.6,17.2 40.7,23.2 42.7,23.9 44.7,19.0 46.8,14.5 48.8,14.4 50.8,13.3 52.9,18.6 54.9,20.3 56.9,22.3 59.0,27.8 61.0,26.2 63.1,24.3 65.1,26.6 67.1,26.5 69.2,24.7 71.2,23.0 73.2,21.3 75.3,21.7 77.3,24.6 79.3,22.3 81.4,23.3 83.4,27.6 85.4,25.0 87.5,25.7 89.5,28.0 91.5,26.9 93.6,27.0 95.6,24.6 97.6,21.7 99.7,25.6 101.7,24.8 103.7,24.5 105.8,26.0 107.8,26.1 109.8,23.5 111.9,25.5 113.9,26.1 115.9,23.7 118.0,17.8 120.0,15.0" fill="none" stroke="#64748b" stroke-width="1.5"/></svg>
-  <div class="rng">52주 3,313 ~ 5,318</div>
+  <svg class="spark" viewBox="0 0 120 28" preserveAspectRatio="none"><polyline points="0.0,0.8 2.0,0.0 4.1,0.8 6.1,5.6 8.1,5.7 10.2,7.5 12.2,6.5 14.2,6.2 16.3,6.9 18.3,7.8 20.3,9.8 22.4,7.8 24.4,5.4 26.4,8.7 28.5,8.2 30.5,10.3 32.5,8.7 34.6,14.2 36.6,14.2 38.6,17.2 40.7,23.2 42.7,23.9 44.7,19.0 46.8,14.5 48.8,14.4 50.8,13.3 52.9,18.6 54.9,20.3 56.9,22.3 59.0,27.8 61.0,26.2 63.1,24.3 65.1,26.6 67.1,26.5 69.2,24.7 71.2,23.0 73.2,21.3 75.3,21.7 77.3,24.6 79.3,22.3 81.4,23.3 83.4,27.6 85.4,25.0 87.5,25.7 89.5,28.0 91.5,26.9 93.6,27.0 95.6,24.6 97.6,21.7 99.7,25.6 101.7,24.8 103.7,24.5 105.8,26.0 107.8,26.1 109.8,23.5 111.9,25.5 113.9,26.1 115.9,23.7 118.0,17.8 120.0,15.1" fill="none" stroke="#64748b" stroke-width="1.5"/></svg>
+  <div class="posbar"><div class="posdot" style="left:49.9%"></div></div><div class="poslb"><span>52주 최저 3,313</span><span>범위 안 50% 지점</span><span>최고 5,318</span></div>
   
-  <div class="note">실질금리와 역상관. 야후로는 실질금리를 못 받아서 금 가격으로 대신 본다.</div>
+  <div class="note">실질금리의 대용품. 지정학·통화 불안을 반영한다.</div>
+  <details class="guide">
+  <summary>설명 펼쳐보기</summary>
+  <div class="gbody">
+    <div class="gh">이게 뭔가</div><p>국제 금 선물 가격입니다. 트로이온스(약 31.1g)당 달러로 표시됩니다.</p>
+    <div class="gh">어떻게 읽나</div><p>금은 이자를 주지 않기 때문에, <b>금리가 낮을수록 유리</b>합니다. 이자 받을 기회를 포기하는 비용이 줄어드니까요. 그래서 실질금리(물가를 뺀 진짜 금리)와 반대로 움직이는 경향이 강합니다. 여기에 지정학 불안, 달러 약세, 각국 중앙은행 매입이 더해집니다.</p>
+    <div class="gh">왜 보는가</div><p>원래 넣으려던 실질금리 지표를 야후에서 못 받아서, 금 가격으로 간접 관찰합니다. 그리고 작년에 선생님이 금을 고른 판단의 근거가 정확히 이 논리였습니다.</p>
+    <div class="gh">주의할 점</div><p>금이 오르는 이유는 여러 개라, 가격만 보고는 어떤 이유인지 알 수 없습니다. 금리 카드, 환율 카드와 함께 봐야 해석이 됩니다.</p>
+  </div>
+</details>
 </div><div class="card">
   <div class="top"><div class="nm">엔/달러</div><div class="dt">2026-08-06</div></div>
   <div class="val">157.8엔</div>
   <div class="row">
-    <span class="lb">1일</span><span class="d up">+0.1%</span>
-    <span class="lb">5일</span><span class="d down">-3.3%</span>
+    <span class="lb">1일</span><span class="d up">+0.0%</span>
+    <span class="lb">5일</span><span class="d down">-3.4%</span>
     <span class="lb">20일</span><span class="d down">-2.9%</span>
   </div>
-  <svg class="spark" viewBox="0 0 120 28" preserveAspectRatio="none"><polyline points="0.0,24.2 2.0,22.2 4.1,22.1 6.1,21.3 8.1,22.0 10.2,21.4 12.2,21.7 14.2,21.7 16.3,20.4 18.3,19.0 20.3,20.3 22.4,19.9 24.4,18.7 26.4,17.2 28.5,17.3 30.5,17.1 32.5,15.6 34.6,16.3 36.6,15.4 38.6,14.7 40.7,16.5 42.7,17.3 44.7,16.1 46.8,15.2 48.8,14.4 50.8,11.4 52.9,10.7 54.9,10.1 56.9,10.0 59.0,9.3 61.0,9.1 63.1,9.2 65.1,8.6 67.1,5.5 69.2,5.9 71.2,10.7 73.2,10.7 75.3,7.8 77.3,6.6 79.3,5.9 81.4,6.6 83.4,8.8 85.4,6.3 87.5,7.4 89.5,7.9 91.5,6.6 93.6,6.0 95.6,6.1 97.6,3.0 99.7,3.5 101.7,0.1 103.7,1.1 105.8,0.4 107.8,0.0 109.8,2.5 111.9,16.3 113.9,27.8 115.9,28.0 118.0,27.3 120.0,26.7" fill="none" stroke="#64748b" stroke-width="1.5"/></svg>
-  <div class="rng">52주 146.4 ~ 163.9</div>
+  <svg class="spark" viewBox="0 0 120 28" preserveAspectRatio="none"><polyline points="0.0,24.2 2.0,22.2 4.1,22.1 6.1,21.3 8.1,22.0 10.2,21.4 12.2,21.7 14.2,21.7 16.3,20.4 18.3,19.0 20.3,20.3 22.4,19.9 24.4,18.7 26.4,17.2 28.5,17.3 30.5,17.1 32.5,15.6 34.6,16.3 36.6,15.4 38.6,14.7 40.7,16.5 42.7,17.3 44.7,16.1 46.8,15.2 48.8,14.4 50.8,11.4 52.9,10.7 54.9,10.1 56.9,10.0 59.0,9.3 61.0,9.1 63.1,9.2 65.1,8.6 67.1,5.5 69.2,5.9 71.2,10.7 73.2,10.7 75.3,7.8 77.3,6.6 79.3,5.9 81.4,6.6 83.4,8.8 85.4,6.3 87.5,7.4 89.5,7.9 91.5,6.6 93.6,6.0 95.6,6.1 97.6,3.0 99.7,3.5 101.7,0.1 103.7,1.1 105.8,0.4 107.8,0.0 109.8,2.5 111.9,16.3 113.9,27.8 115.9,28.0 118.0,27.3 120.0,27.0" fill="none" stroke="#64748b" stroke-width="1.5"/></svg>
+  <div class="posbar"><div class="posdot" style="left:65.1%"></div></div><div class="poslb"><span>52주 최저 146.4</span><span>범위 안 65% 지점</span><span>최고 163.9</span></div>
   
   <div class="note">엔캐리 청산은 한국 증시를 직격한 전례가 있다.</div>
+  <details class="guide">
+  <summary>설명 펼쳐보기</summary>
+  <div class="gbody">
+    <div class="gh">이게 뭔가</div><p>1달러를 사는 데 필요한 엔화입니다. 숫자가 올라가면 엔 약세, 내려가면 엔 강세입니다.</p>
+    <div class="gh">어떻게 읽나</div><p>완만한 움직임은 넘기셔도 됩니다. <b>단기간에 엔이 급격히 강세로 돌아설 때</b>(숫자가 빠르게 내려갈 때)만 주의하면 됩니다.</p>
+    <div class="gh">왜 보는가</div><p>일본은 오랫동안 금리가 매우 낮아서, 전 세계 투자자들이 싼 엔화를 빌려 다른 나라 자산을 사왔습니다. 이걸 엔캐리 트레이드라고 합니다. 그런데 엔이 갑자기 강해지면 빌린 돈을 갚는 비용이 커져서, 사둔 자산을 급히 팔아치웁니다. 이때 전 세계가 동시에 흔들립니다. 2024년 8월에 한국 증시가 이것 때문에 크게 무너진 적이 있습니다.</p>
+    <div class="gh">주의할 점</div><p>평소에는 볼 필요가 거의 없는 카드입니다. 다른 게 다 멀쩡한데 갑자기 세계 증시가 흔들릴 때, 원인 후보로 여기를 확인하는 용도입니다.</p>
+  </div>
+</details>
 </div></div>
 <footer>
-변화율의 색은 방향만 나타냅니다. 빨강이 나쁘다는 뜻이 아닙니다.<br>
-반증 조건은 fetch.py 상단에서 고칠 수 있습니다.<br>
-출처 Yahoo Finance. 투자 판단과 책임은 본인에게 있습니다.
+지표를 많이 볼수록 좋아지지 않습니다. 20개를 보면 언제나 몇 개는 사라고 하고 몇 개는 팔라고 합니다.
+그래서 핵심을 6개로 고정했습니다.<br><br>
+출처 Yahoo Finance. 이 화면은 정보 정리 도구이며 투자 권유가 아닙니다. 판단과 책임은 본인에게 있습니다.
 </footer>
 </body></html>
