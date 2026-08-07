@@ -100,6 +100,80 @@ METRICS = [
         },
     },
 
+    # ── 미국 시장 ──
+    {
+        "kind": "yahoo", "sym": "^NDX", "core": False, "group": "us",
+        "name": "나스닥 100", "unit": "",
+        "note": "기술주 중심 지수. AI 테마의 온도계.",
+        "trigger": None, "direction": None,
+        "guide": {
+            "what": "나스닥에 상장된 비금융 대형주 100개를 묶은 지수입니다. 애플·마이크로소프트·엔비디아 같은 기술기업 비중이 압도적입니다.",
+            "read": "S&P500보다 더 크게 오르내립니다. 나스닥이 S&P보다 많이 빠지는 날은 기술주에서 돈이 빠지는 중이고, 반대면 위험을 감수하는 분위기입니다. <b>두 지수의 차이가 시장의 성향을 알려줍니다.</b>",
+            "why": "AI·반도체 테마의 본진이 여기입니다. 한국 반도체에 대한 판단을 하려면 이쪽 온도를 먼저 봐야 합니다.",
+            "caution": "상위 몇 개 기업이 지수의 절반 가까이를 차지합니다. 100개 기업의 평균이 아니라 사실상 소수 거대기업의 주가라고 보는 게 맞습니다.",
+        },
+    },
+    {
+        "kind": "yahoo", "sym": "^DJI", "core": False, "group": "us",
+        "name": "다우존스 산업평균", "unit": "",
+        "note": "전통 대형주 30개. 나스닥과 비교용.",
+        "trigger": None, "direction": None,
+        "guide": {
+            "what": "미국의 대표적인 대기업 30곳의 주가를 평균낸 지수입니다. 1896년부터 이어져 온 가장 오래된 지수입니다.",
+            "read": "기술주 비중이 낮아 나스닥과 다르게 움직입니다. <b>다우는 오르는데 나스닥이 빠지면</b> 돈이 성장주에서 안정적인 기업으로 옮겨가는 중이라는 뜻입니다.",
+            "why": "나스닥과 짝지어 보면 시장의 성향 변화가 보입니다. 지수 하나만 보면 '올랐다·내렸다'뿐입니다.",
+            "caution": "30개 종목뿐이고 주가를 단순 평균하는 방식이라, 미국 경제를 대표한다고 보기엔 좁습니다. 참고용입니다.",
+        },
+    },
+    {
+        "kind": "yahoo", "sym": "^RUT", "core": False, "group": "us",
+        "name": "러셀 2000 (중소형주)", "unit": "",
+        "note": "미국 실물경기의 체감 온도.",
+        "trigger": None, "direction": None,
+        "guide": {
+            "what": "미국 중소형 기업 2,000곳을 묶은 지수입니다.",
+            "read": "중소기업은 대기업보다 빚 부담이 크고 내수 의존도가 높아, <b>금리와 경기에 훨씬 민감</b>합니다. 대형주는 버티는데 러셀만 빠지면 실물경기가 나빠지고 있다는 신호일 수 있습니다.",
+            "why": "S&P500과 나스닥은 소수 거대기업에 좌우돼서 미국 경제 전반을 못 보여줍니다. 러셀은 그 사각지대를 메웁니다.",
+            "caution": "변동성이 큰 지수라 단기 등락에 과하게 반응하지 마세요. 20일 흐름으로 보시길 권합니다.",
+        },
+    },
+    {
+        "kind": "yahoo", "sym": "XLK", "core": False, "group": "us",
+        "name": "미국 기술 섹터 (XLK)", "unit": "$",
+        "note": "S&P500 안의 기술주만 모은 ETF.",
+        "trigger": None, "direction": None,
+        "guide": {
+            "what": "S&P500에 포함된 기술 업종 기업만 따로 묶은 ETF입니다.",
+            "read": "S&P500 카드와 변화율을 비교하세요. XLK가 더 오르면 시장 상승을 기술주가 이끄는 것이고, 덜 오르면 다른 업종이 이끄는 것입니다.",
+            "why": "'AI 설비투자 사이클이 지속되는가'라는 가설을 직접 확인할 수 있는 자리입니다.",
+            "caution": "엔비디아 같은 소수 종목의 영향이 큽니다. 섹터 전체의 건강 상태로 오해하지 마세요.",
+        },
+    },
+    {
+        "kind": "yahoo", "sym": "XLU", "core": False, "group": "us",
+        "name": "미국 전력·유틸리티 (XLU)", "unit": "$",
+        "note": "AI 데이터센터 전력 테마의 대표 자리.",
+        "trigger": None, "direction": None,
+        "guide": {
+            "what": "미국의 전력·가스·수도 회사들을 묶은 ETF입니다. 관심 있다고 하신 전력 테마가 여기 해당합니다.",
+            "read": "두 가지 힘이 반대로 작용합니다. AI 데이터센터 전력 수요는 <b>호재</b>이고, 장기금리 상승은 <b>악재</b>입니다. 유틸리티는 빚을 많이 쓰고 배당으로 평가받는 업종이라 금리에 민감합니다. 그래서 30년 국채금리 카드와 반드시 함께 보세요.",
+            "why": "전력을 '반도체 대신 안전한 우회로'로 여기기 쉬운데, 실제로는 다른 종류의 위험으로 갈아타는 것입니다. 그 위험이 금리이고, 이 판에 금리 카드가 있으니 대조가 가능합니다.",
+            "caution": "전통적으로 방어주로 분류되던 업종입니다. AI 테마로 재평가받는 중이지만, 성장주처럼 움직일 거라 기대하면 실망할 수 있습니다.",
+        },
+    },
+    {
+        "kind": "yahoo", "sym": "XLE", "core": False, "group": "us",
+        "name": "미국 에너지 섹터 (XLE)", "unit": "$",
+        "note": "지정학 긴장과 물가 압력이 가장 먼저 나타나는 곳.",
+        "trigger": None, "direction": None,
+        "guide": {
+            "what": "미국의 석유·가스 기업들을 묶은 ETF입니다.",
+            "read": "에너지가 갑자기 강해지면 대개 <b>지정학 사건이나 공급 차질</b>이 있었다는 뜻입니다. 그리고 에너지 가격 상승은 시차를 두고 물가로 넘어가 금리 인하를 어렵게 만듭니다.",
+            "why": "작년에 지정학 리스크로 금을 고르셨는데, 그때 함께 봤어야 할 자리가 여기입니다. 지정학 신호가 금보다 먼저 나타나는 경우도 많습니다.",
+            "caution": "유가는 수요보다 공급 뉴스로 움직이는 날이 많아, 경기 지표로 읽으면 자주 틀립니다.",
+        },
+    },
+
     # ── 참고 ──
     {
         "kind": "yahoo", "sym": "^TNX", "core": False,
@@ -376,13 +450,16 @@ def render(metrics):
                   f'미리 정해둔 조건이 켜졌습니다. 기록장의 해당 가설을 열어 점검하세요.</div>')
 
     core = "".join(card(m) for m in metrics if m.get("core"))
-    ref = "".join(card(m) for m in metrics if not m.get("core"))
+    us = "".join(card(m) for m in metrics if m.get("group") == "us")
+    ref = "".join(card(m) for m in metrics
+                  if not m.get("core") and m.get("group") != "us")
 
     return f"""<!doctype html>
 <html lang="ko"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#0f172a">
+<meta http-equiv="refresh" content="900">
 <title>지표판</title>
 <style>
 *{{box-sizing:border-box;margin:0;padding:0}}
@@ -432,12 +509,14 @@ footer{{margin-top:26px;padding-top:14px;border-top:1px solid #1e293b;font-size:
 <header>
   <div class="eyebrow">Macro Panel</div>
   <h1>지표판</h1>
-  <div class="stamp">갱신 {now} KST</div>
+  <div class="stamp">갱신 {now} KST · 평일 30분마다 자동 갱신</div>
 </header>
 {banner}
 {HOWTO}
 <div class="sect">핵심 — 판단에 쓰는 것</div>
 <div class="grid">{core}</div>
+<div class="sect">미국 시장 — 지금 저쪽 분위기</div>
+<div class="grid">{us}</div>
 <div class="sect">참고 — 배경으로 두는 것</div>
 <div class="grid">{ref}</div>
 <footer>
@@ -462,11 +541,15 @@ def main():
                 log = json.load(f)
         except Exception:
             log = []
-    log.append({
-        "at": datetime.now(KST).strftime("%Y-%m-%d"),
+    stamp = datetime.now(KST).strftime("%Y-%m-%d")
+    entry = {
+        "at": stamp,
         "values": {m["name"]: m.get("last") for m in metrics if m.get("ok")},
         "lit": [m["name"] for m in metrics if m.get("lit")],
-    })
+    }
+    # 30분마다 돌기 때문에 같은 날짜는 덮어쓴다 (하루 한 줄만 남김)
+    log = [e for e in log if e.get("at") != stamp]
+    log.append(entry)
     with open(HISTORY, "w", encoding="utf-8") as f:
         json.dump(log[-400:], f, ensure_ascii=False, indent=1)
 
