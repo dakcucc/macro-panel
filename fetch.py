@@ -17,6 +17,10 @@ KST = timezone(timedelta(hours=9))
 OUT_DIR = "docs"
 HISTORY = os.path.join(OUT_DIR, "history.json")
 
+# 깃허브 저장소 주소 — 아이디나 저장소 이름을 바꿨다면 여기도 고칠 것
+REPO = "dakcucc/macro-panel"
+ACTIONS_URL = f"https://github.com/{REPO}/actions/workflows/daily.yml"
+
 # ─────────────────────────────────────────────────────────────
 # 지표 설정
 #   trigger    : 반증 조건. 값이 이 선을 넘으면 점등된다.
@@ -386,7 +390,11 @@ def card(m):
         trig = (f'<div class="trig{" on" if m["lit"] else ""}">'
                 f'내가 정한 경보선 {fmt(m["trigger"])} {arrow} 점등 · {state}</div>')
 
-    return f"""<div class="card{' lit' if m.get('lit') else ''}">
+    sym_attr = ""
+    if m.get("kind") == "yahoo":
+        sym_attr = f' data-sym="{m["sym"]}" data-unit="{m["unit"]}"'
+
+    return f"""<div class="card{' lit' if m.get('lit') else ''}"{sym_attr}>
   <div class="top"><div class="nm">{m['name']}</div><div class="dt">{m['date']}</div></div>
   <div class="val">{fmt(m['last'], m['unit'])}</div>
   <div class="row">
@@ -440,6 +448,100 @@ HOWTO = """<details class="howto">
 </details>"""
 
 
+JS = """
+<script>
+(function(){
+  // 야후는 웹페이지에서의 직접 호출을 막아두어서, 공개 중계 서버를 거친다.
+  // 중계 서버가 죽어 있을 수 있으므로 두 곳을 순서대로 시도한다.
+  var PROXIES = [
+    function(u){ return 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u); },
+    function(u){ return 'https://corsproxy.io/?url=' + encodeURIComponent(u); }
+  ];
+
+  function yurl(sym){
+    return 'https://query1.finance.yahoo.com/v8/finance/chart/'
+           + encodeURIComponent(sym) + '?range=1d&interval=1d';
+  }
+
+  function fmt(v, unit){
+    if (v === null || v === undefined || isNaN(v)) return '—';
+    var a = Math.abs(v), s;
+    if (a >= 1000) s = v.toLocaleString('en-US', {maximumFractionDigits:0});
+    else if (a >= 100) s = v.toFixed(1);
+    else s = v.toFixed(2);
+    return s + (unit || '');
+  }
+
+  async function grab(sym){
+    for (var i = 0; i < PROXIES.length; i++){
+      try {
+        var res = await fetch(PROXIES[i](yurl(sym)), {cache:'no-store'});
+        if (!res.ok) continue;
+        var j = await res.json();
+        var meta = j.chart.result[0].meta;
+        var price = meta.regularMarketPrice;
+        var prev = meta.chartPreviousClose;
+        if (prev === undefined) prev = meta.previousClose;
+        if (price === undefined || price === null) continue;
+        return {price: price, prev: prev};
+      } catch (e) { /* 다음 중계 서버로 */ }
+    }
+    return null;
+  }
+
+  var bar, btn, msg;
+
+  async function refresh(manual){
+    var cards = document.querySelectorAll('[data-sym]');
+    btn.disabled = true;
+    msg.textContent = '받아오는 중…';
+
+    var jobs = [], ok = 0, fail = 0;
+    cards.forEach(function(card){
+      jobs.push(grab(card.dataset.sym).then(function(d){
+        if (!d){ fail++; return; }
+        ok++;
+        card.querySelector('.val').textContent = fmt(d.price, card.dataset.unit);
+        var todaySpan = card.querySelector('.d');
+        if (todaySpan && d.prev){
+          var p = (d.price - d.prev) / Math.abs(d.prev) * 100;
+          todaySpan.textContent = (p > 0 ? '+' : '') + p.toFixed(1) + '%';
+          todaySpan.className = 'd ' + (p > 0 ? 'up' : (p < 0 ? 'down' : 'flat'));
+        }
+        card.querySelector('.dt').textContent = '방금';
+        card.classList.add('fresh');
+      }));
+    });
+
+    await Promise.allSettled(jobs);
+    btn.disabled = false;
+
+    var now = new Date();
+    var hh = String(now.getHours()).padStart(2,'0');
+    var mm = String(now.getMinutes()).padStart(2,'0');
+
+    if (ok === 0){
+      msg.innerHTML = '중계 서버가 응답하지 않습니다. '
+        + '<a href="__ACTIONS__" target="_blank">깃허브에서 직접 갱신하기</a>';
+    } else {
+      msg.textContent = hh + ':' + mm + ' 기준 ' + ok + '개 갱신'
+        + (fail ? ' (' + fail + '개 실패)' : '');
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    bar = document.getElementById('refresh-bar');
+    btn = document.getElementById('refresh-btn');
+    msg = document.getElementById('refresh-msg');
+    btn.addEventListener('click', function(){ refresh(true); });
+    refresh(false);                      // 페이지를 열면 바로 한 번
+    setInterval(function(){ refresh(false); }, 300000);  // 이후 5분마다
+  });
+})();
+</script>
+"""
+
+
 def render(metrics):
     now = datetime.now(KST).strftime("%Y-%m-%d %H:%M")
     lit = [m for m in metrics if m.get("lit")]
@@ -459,7 +561,6 @@ def render(metrics):
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#0f172a">
-<meta http-equiv="refresh" content="900">
 <title>지표판</title>
 <style>
 *{{box-sizing:border-box;margin:0;padding:0}}
@@ -504,13 +605,24 @@ details[open] summary::before{{content:"▾ "}}
 .gbody b{{color:#f8fafc}}
 .howto{{background:#1e293b;border:1px solid #334155;border-radius:6px;padding:12px 14px;margin-bottom:6px}}
 .howto summary{{font-size:12px;color:#7dd3fc}}
+.rbar{{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}}
+.rbtn{{background:#e2e8f0;color:#0f172a;border:0;border-radius:5px;padding:9px 16px;font-size:13px;font-weight:600;cursor:pointer}}
+.rbtn:disabled{{opacity:.4;cursor:default}}
+.rmsg{{font-family:ui-monospace,monospace;font-size:11px;color:#64748b}}
+.rmsg a{{color:#7dd3fc}}
+.card.fresh .dt{{color:#4ade80}}
+footer a{{color:#7dd3fc}}
 footer{{margin-top:26px;padding-top:14px;border-top:1px solid #1e293b;font-size:11px;color:#475569;line-height:1.7}}
 </style></head><body>
 <header>
   <div class="eyebrow">Macro Panel</div>
   <h1>지표판</h1>
-  <div class="stamp">갱신 {now} KST · 평일 30분마다 자동 갱신</div>
+  <div class="stamp">서버 갱신 {now} KST</div>
 </header>
+<div id="refresh-bar" class="rbar">
+  <button id="refresh-btn" class="rbtn">지금 갱신</button>
+  <span id="refresh-msg" class="rmsg">대기 중</span>
+</div>
 {banner}
 {HOWTO}
 <div class="sect">핵심 — 판단에 쓰는 것</div>
@@ -522,8 +634,12 @@ footer{{margin-top:26px;padding-top:14px;border-top:1px solid #1e293b;font-size:
 <footer>
 지표를 많이 볼수록 좋아지지 않습니다. 20개를 보면 언제나 몇 개는 사라고 하고 몇 개는 팔라고 합니다.
 그래서 핵심을 6개로 고정했습니다.<br><br>
+값은 두 경로로 들어옵니다. 서버가 평일에 주기적으로 만들어두는 값과, 페이지를 열 때 브라우저가 직접 받아오는 값입니다.
+'방금'이라고 표시된 카드는 후자입니다. 스파크라인과 52주 범위는 서버 갱신 때만 바뀝니다.<br><br>
+잘 안 될 때는 <a href="{ACTIONS_URL}" target="_blank">깃허브에서 직접 갱신</a>할 수 있습니다.<br><br>
 출처 Yahoo Finance. 이 화면은 정보 정리 도구이며 투자 권유가 아닙니다. 판단과 책임은 본인에게 있습니다.
 </footer>
+{JS.replace("__ACTIONS__", ACTIONS_URL)}
 </body></html>"""
 
 
