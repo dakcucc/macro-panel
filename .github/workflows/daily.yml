@@ -3,16 +3,16 @@ name: 지표 수집
 on:
   schedule:
     # 시각은 전부 UTC 기준. 한국시간 = UTC + 9시간
+    # 정각·30분은 전 세계 사용자가 몰려 밀리기 쉬우므로 어중간한 분으로 잡는다.
     #
-    # 00:00~07:30 UTC = 한국시간 09:00~16:30  → 근무 중 쉬는시간·점심시간
-    - cron: "*/30 0-7 * * 1-5"
-    # 13:00~21:30 UTC = 한국시간 22:00~06:30  → 미국 장중
-    - cron: "*/30 13-21 * * 1-5"
-    # 한국 장 마감 직후 한 번 더
-    - cron: "40 6 * * 1-5"
+    # 00:07~07:37 UTC = 한국시간 09:07~16:37  → 근무 중 쉬는시간·점심시간
+    - cron: "7,37 0-7 * * 1-5"
+    # 13:07~21:37 UTC = 한국시간 22:07~06:37  → 미국 장중
+    - cron: "7,37 13-21 * * 1-5"
+    # 주말에도 하루 두 번은 돌려서 화면이 너무 묵지 않게 한다
+    - cron: "17 1,23 * * 0,6"
   workflow_dispatch:   # 깃허브 화면에서 손으로 즉시 실행
 
-# 실행이 겹치면 이전 것을 취소한다
 concurrency:
   group: fetch
   cancel-in-progress: false
@@ -38,6 +38,7 @@ jobs:
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add docs/
-          git diff --staged --quiet || git commit -m "지표 갱신 $(date -u +'%Y-%m-%d %H:%M')"
+          git diff --staged --quiet && echo "변경 없음" && exit 0
+          git commit -m "지표 갱신 $(date -u +'%Y-%m-%d %H:%M')"
           git pull --rebase --autostash || true
           git push
