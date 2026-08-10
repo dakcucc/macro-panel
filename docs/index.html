@@ -3,7 +3,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#0f172a">
-<meta http-equiv="refresh" content="900">
 <title>지표판</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -48,13 +47,24 @@ details[open] summary::before{content:"▾ "}
 .gbody b{color:#f8fafc}
 .howto{background:#1e293b;border:1px solid #334155;border-radius:6px;padding:12px 14px;margin-bottom:6px}
 .howto summary{font-size:12px;color:#7dd3fc}
+.rbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.rbtn{background:#e2e8f0;color:#0f172a;border:0;border-radius:5px;padding:9px 16px;font-size:13px;font-weight:600;cursor:pointer}
+.rbtn:disabled{opacity:.4;cursor:default}
+.rmsg{font-family:ui-monospace,monospace;font-size:11px;color:#64748b}
+.rmsg a{color:#7dd3fc}
+.card.fresh .dt{color:#4ade80}
+footer a{color:#7dd3fc}
 footer{margin-top:26px;padding-top:14px;border-top:1px solid #1e293b;font-size:11px;color:#475569;line-height:1.7}
 </style></head><body>
 <header>
   <div class="eyebrow">Macro Panel</div>
   <h1>지표판</h1>
-  <div class="stamp">갱신 2026-08-08 08:19 KST · 평일 30분마다 자동 갱신</div>
+  <div class="stamp">서버 갱신 2026-08-10 09:52 KST</div>
 </header>
+<div id="refresh-bar" class="rbar">
+  <button id="refresh-btn" class="rbtn">지금 갱신</button>
+  <span id="refresh-msg" class="rmsg">대기 중</span>
+</div>
 
 <details class="howto">
 <summary>화면 읽는 법 (처음이면 여기부터)</summary>
@@ -79,7 +89,7 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid #1e293b;font-size:1
 </div>
 </details>
 <div class="sect">핵심 — 판단에 쓰는 것</div>
-<div class="grid"><div class="card">
+<div class="grid"><div class="card" data-sym="^VIX" data-unit="">
   <div class="top"><div class="nm">VIX (미국 변동성)</div><div class="dt">2026-08-07</div></div>
   <div class="val">14.90</div>
   <div class="row">
@@ -100,16 +110,16 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid #1e293b;font-size:1
     <div class="gh">주의할 점</div><p>VIX가 낮다고 안전한 게 아닙니다. 오히려 시장이 방심하고 있다는 뜻이기도 하고, 급락은 대개 VIX가 낮은 상태에서 시작됩니다. 낮은 VIX는 '지금 조용하다'이지 '앞으로 조용할 것이다'가 아닙니다.</p>
   </div>
 </details>
-</div><div class="card">
-  <div class="top"><div class="nm">코스피</div><div class="dt">2026-08-06</div></div>
-  <div class="val">6,296</div>
+</div><div class="card" data-sym="^KS11" data-unit="">
+  <div class="top"><div class="nm">코스피</div><div class="dt">2026-08-10</div></div>
+  <div class="val">6,329</div>
   <div class="row">
-    <span class="lb">1일</span><span class="d down">-4.6%</span>
-    <span class="lb">5일</span><span class="d up">+12.6%</span>
-    <span class="lb">20일</span><span class="d down">-13.1%</span>
+    <span class="lb">1일</span><span class="d up">+1.1%</span>
+    <span class="lb">5일</span><span class="d up">+1.1%</span>
+    <span class="lb">20일</span><span class="d down">-15.3%</span>
   </div>
-  <svg class="spark" viewBox="0 0 120 28" preserveAspectRatio="none"><polyline points="0.0,11.7 2.0,10.1 4.1,9.0 6.1,12.9 8.1,12.7 10.2,14.7 12.2,15.2 14.2,10.3 16.3,10.1 18.3,8.5 20.3,7.0 22.4,7.4 24.4,5.1 26.4,2.6 28.5,2.5 30.5,3.8 32.5,7.6 34.6,13.0 36.6,8.1 38.6,11.0 40.7,10.7 42.7,7.9 44.7,4.5 46.8,3.1 48.8,2.0 50.8,0.4 52.9,0.5 54.9,0.0 56.9,7.2 59.0,5.1 61.0,1.5 63.1,5.6 65.1,5.7 67.1,5.1 69.2,6.5 71.2,11.7 73.2,8.2 75.3,8.5 77.3,11.6 79.3,14.9 81.4,14.5 83.4,13.0 85.4,18.4 87.5,18.0 89.5,14.6 91.5,18.2 93.6,20.7 95.6,18.8 97.6,18.4 99.7,16.0 101.7,19.3 103.7,18.8 105.8,24.6 107.8,27.4 109.8,28.0 111.9,20.0 113.9,22.7 115.9,21.9 118.0,20.0 120.0,22.4" fill="none" stroke="#64748b" stroke-width="1.5"/></svg>
-  <div class="posbar"><div class="posdot" style="left:52.9%"></div></div><div class="poslb"><span>52주 최저 3,130</span><span>범위 안 53% 지점</span><span>최고 9,115</span></div>
+  <svg class="spark" viewBox="0 0 120 28" preserveAspectRatio="none"><polyline points="0.0,9.0 2.0,12.9 4.1,12.7 6.1,14.7 8.1,15.2 10.2,10.3 12.2,10.1 14.2,8.5 16.3,7.0 18.3,7.4 20.3,5.1 22.4,2.6 24.4,2.5 26.4,3.8 28.5,7.6 30.5,13.0 32.5,8.1 34.6,11.0 36.6,10.7 38.6,7.9 40.7,4.5 42.7,3.1 44.7,2.0 46.8,0.4 48.8,0.5 50.8,0.0 52.9,7.2 54.9,5.1 56.9,1.5 59.0,5.6 61.0,5.7 63.1,5.1 65.1,6.5 67.1,11.7 69.2,8.2 71.2,8.5 73.2,11.6 75.3,14.9 77.3,14.5 79.3,13.0 81.4,18.4 83.4,18.0 85.4,14.6 87.5,18.2 89.5,20.7 91.5,18.8 93.6,18.4 95.6,16.0 97.6,19.3 99.7,18.8 101.7,24.6 103.7,27.4 105.8,28.0 107.8,20.0 109.8,22.7 111.9,21.9 113.9,20.0 115.9,22.4 118.0,22.7 120.0,22.2" fill="none" stroke="#64748b" stroke-width="1.5"/></svg>
+  <div class="posbar"><div class="posdot" style="left:53.5%"></div></div><div class="poslb"><span>52주 최저 3,130</span><span>범위 안 53% 지점</span><span>최고 9,115</span></div>
   
   <div class="note">한국 시장 전체의 체온. VIX와의 괴리가 한국 고유 리스크의 크기다.</div>
   <details class="guide">
@@ -121,7 +131,7 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid #1e293b;font-size:1
     <div class="gh">주의할 점</div><p>코스피는 삼성전자와 SK하이닉스의 비중이 지나치게 커서, 사실상 반도체 지수에 가깝습니다. 코스피가 올랐다고 한국 경제 전체가 좋아진 게 아니고, 국내 ETF로 분산했다고 생각해도 결국 이 두 종목에 걸려 있는 경우가 많습니다.</p>
   </div>
 </details>
-</div><div class="card">
+</div><div class="card" data-sym="^TYX" data-unit="%">
   <div class="top"><div class="nm">미 30년 국채금리</div><div class="dt">2026-08-07</div></div>
   <div class="val">5.21%</div>
   <div class="row">
@@ -142,16 +152,16 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid #1e293b;font-size:1
     <div class="gh">주의할 점</div><p>하루 0.05%p 움직임도 채권시장에서는 큰 사건입니다. 주식처럼 몇 % 단위로 생각하면 감이 안 잡히니, 변화율보다 <b>절대 수치가 어디에 있는지</b>를 보세요.</p>
   </div>
 </details>
-</div><div class="card">
-  <div class="top"><div class="nm">원/달러</div><div class="dt">2026-08-07</div></div>
-  <div class="val">1,407원</div>
+</div><div class="card" data-sym="KRW=X" data-unit="원">
+  <div class="top"><div class="nm">원/달러</div><div class="dt">2026-08-10</div></div>
+  <div class="val">1,413원</div>
   <div class="row">
-    <span class="lb">1일</span><span class="d down">-1.0%</span>
-    <span class="lb">5일</span><span class="d down">-2.0%</span>
-    <span class="lb">20일</span><span class="d down">-6.1%</span>
+    <span class="lb">1일</span><span class="d down">-0.7%</span>
+    <span class="lb">5일</span><span class="d down">-1.6%</span>
+    <span class="lb">20일</span><span class="d down">-5.7%</span>
   </div>
-  <svg class="spark" viewBox="0 0 120 28" preserveAspectRatio="none"><polyline points="0.0,11.8 2.0,8.9 4.1,10.4 6.1,9.5 8.1,7.9 10.2,7.6 12.2,9.3 14.2,9.8 16.3,11.3 18.3,9.1 20.3,8.2 22.4,7.2 24.4,4.6 26.4,4.1 28.5,0.0 30.5,4.9 32.5,5.5 34.6,5.6 36.6,7.1 38.6,8.6 40.7,7.8 42.7,8.3 44.7,5.5 46.8,3.2 48.8,4.4 50.8,2.9 52.9,3.7 54.9,2.2 56.9,1.5 59.0,3.7 61.0,2.4 63.1,1.1 65.1,0.5 67.1,2.4 69.2,4.5 71.2,4.9 73.2,6.6 75.3,9.7 77.3,9.2 79.3,10.7 81.4,10.8 83.4,12.7 85.4,13.0 87.5,14.4 89.5,12.8 91.5,15.1 93.6,14.2 95.6,15.0 97.6,15.3 99.7,18.4 101.7,17.1 103.7,19.3 105.8,21.4 107.8,25.5 109.8,22.6 111.9,24.0 113.9,24.0 115.9,25.4 118.0,25.2 120.0,28.0" fill="none" stroke="#64748b" stroke-width="1.5"/></svg>
-  <div class="posbar"><div class="posdot" style="left:16.9%"></div></div><div class="poslb"><span>52주 최저 1,378</span><span>범위 안 17% 지점</span><span>최고 1,554</span></div>
+  <svg class="spark" viewBox="0 0 120 28" preserveAspectRatio="none"><polyline points="0.0,12.3 2.0,9.2 4.1,10.8 6.1,9.9 8.1,8.2 10.2,7.8 12.2,9.7 14.2,10.2 16.3,11.7 18.3,9.4 20.3,8.5 22.4,7.5 24.4,4.8 26.4,4.2 28.5,0.0 30.5,5.1 32.5,5.7 34.6,5.8 36.6,7.3 38.6,8.9 40.7,8.1 42.7,8.6 44.7,5.7 46.8,3.3 48.8,4.6 50.8,3.1 52.9,3.8 54.9,2.3 56.9,1.6 59.0,3.8 61.0,2.5 63.1,1.2 65.1,0.5 67.1,2.4 69.2,4.6 71.2,5.1 73.2,6.8 75.3,10.1 77.3,9.6 79.3,11.1 81.4,11.2 83.4,13.2 85.4,13.5 87.5,15.0 89.5,13.3 91.5,15.7 93.6,14.8 95.6,15.6 97.6,15.9 99.7,19.1 101.7,17.8 103.7,20.0 105.8,22.2 107.8,26.5 109.8,23.5 111.9,24.9 113.9,24.9 115.9,26.4 118.0,26.1 120.0,28.0" fill="none" stroke="#64748b" stroke-width="1.5"/></svg>
+  <div class="posbar"><div class="posdot" style="left:19.9%"></div></div><div class="poslb"><span>52주 최저 1,378</span><span>범위 안 20% 지점</span><span>최고 1,554</span></div>
   <div class="trig">내가 정한 경보선 1,450 넘으면 점등 · 아직 안 켜짐</div>
   <div class="note">외국인 수급과 보유 ETF 수익률에 동시에 걸리는 숫자.</div>
   <details class="guide">
@@ -184,7 +194,7 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid #1e293b;font-size:1
     <div class="gh">주의할 점</div><p>하루하루 변동은 대부분 노이즈입니다. <b>20일 변화율</b>만 보시고, 그것도 -1% 이상 빠질 때만 의미 있게 받아들이세요. 원래 지표(하이일드 스프레드)를 못 쓰게 되어 대신 쓰는 근사치라, 정밀도는 떨어집니다.</p>
   </div>
 </details>
-</div><div class="card">
+</div><div class="card" data-sym="^GSPC" data-unit="">
   <div class="top"><div class="nm">S&P 500</div><div class="dt">2026-08-07</div></div>
   <div class="val">7,758</div>
   <div class="row">
@@ -207,7 +217,7 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid #1e293b;font-size:1
 </details>
 </div></div>
 <div class="sect">미국 시장 — 지금 저쪽 분위기</div>
-<div class="grid"><div class="card">
+<div class="grid"><div class="card" data-sym="^NDX" data-unit="">
   <div class="top"><div class="nm">나스닥 100</div><div class="dt">2026-08-07</div></div>
   <div class="val">29,722</div>
   <div class="row">
@@ -228,7 +238,7 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid #1e293b;font-size:1
     <div class="gh">주의할 점</div><p>상위 몇 개 기업이 지수의 절반 가까이를 차지합니다. 100개 기업의 평균이 아니라 사실상 소수 거대기업의 주가라고 보는 게 맞습니다.</p>
   </div>
 </details>
-</div><div class="card">
+</div><div class="card" data-sym="^DJI" data-unit="">
   <div class="top"><div class="nm">다우존스 산업평균</div><div class="dt">2026-08-07</div></div>
   <div class="val">54,037</div>
   <div class="row">
@@ -249,7 +259,7 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid #1e293b;font-size:1
     <div class="gh">주의할 점</div><p>30개 종목뿐이고 주가를 단순 평균하는 방식이라, 미국 경제를 대표한다고 보기엔 좁습니다. 참고용입니다.</p>
   </div>
 </details>
-</div><div class="card">
+</div><div class="card" data-sym="^RUT" data-unit="">
   <div class="top"><div class="nm">러셀 2000 (중소형주)</div><div class="dt">2026-08-07</div></div>
   <div class="val">3,034</div>
   <div class="row">
@@ -270,7 +280,7 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid #1e293b;font-size:1
     <div class="gh">주의할 점</div><p>변동성이 큰 지수라 단기 등락에 과하게 반응하지 마세요. 20일 흐름으로 보시길 권합니다.</p>
   </div>
 </details>
-</div><div class="card">
+</div><div class="card" data-sym="XLK" data-unit="$">
   <div class="top"><div class="nm">미국 기술 섹터 (XLK)</div><div class="dt">2026-08-07</div></div>
   <div class="val">188.0$</div>
   <div class="row">
@@ -291,7 +301,7 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid #1e293b;font-size:1
     <div class="gh">주의할 점</div><p>엔비디아 같은 소수 종목의 영향이 큽니다. 섹터 전체의 건강 상태로 오해하지 마세요.</p>
   </div>
 </details>
-</div><div class="card">
+</div><div class="card" data-sym="XLU" data-unit="$">
   <div class="top"><div class="nm">미국 전력·유틸리티 (XLU)</div><div class="dt">2026-08-07</div></div>
   <div class="val">43.61$</div>
   <div class="row">
@@ -312,7 +322,7 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid #1e293b;font-size:1
     <div class="gh">주의할 점</div><p>전통적으로 방어주로 분류되던 업종입니다. AI 테마로 재평가받는 중이지만, 성장주처럼 움직일 거라 기대하면 실망할 수 있습니다.</p>
   </div>
 </details>
-</div><div class="card">
+</div><div class="card" data-sym="XLE" data-unit="$">
   <div class="top"><div class="nm">미국 에너지 섹터 (XLE)</div><div class="dt">2026-08-07</div></div>
   <div class="val">57.50$</div>
   <div class="row">
@@ -335,7 +345,7 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid #1e293b;font-size:1
 </details>
 </div></div>
 <div class="sect">참고 — 배경으로 두는 것</div>
-<div class="grid"><div class="card">
+<div class="grid"><div class="card" data-sym="^TNX" data-unit="%">
   <div class="top"><div class="nm">미 10년 국채금리</div><div class="dt">2026-08-07</div></div>
   <div class="val">4.66%</div>
   <div class="row">
@@ -356,7 +366,7 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid #1e293b;font-size:1
     <div class="gh">주의할 점</div><p>장단기 금리 역전이 침체 신호로 유명하지만, 신호가 뜨고 실제 침체까지 6개월에서 2년까지 걸립니다. 매매 타이밍 도구로는 못 씁니다.</p>
   </div>
 </details>
-</div><div class="card">
+</div><div class="card" data-sym="SOXX" data-unit="$">
   <div class="top"><div class="nm">미국 반도체 ETF (SOXX)</div><div class="dt">2026-08-07</div></div>
   <div class="val">543.3$</div>
   <div class="row">
@@ -377,16 +387,16 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid #1e293b;font-size:1
     <div class="gh">주의할 점</div><p>SOXX와 코스피는 거래 시간이 달라서 하루 정도 시차가 납니다. 하루 단위로 비교하지 말고 5일·20일로 보세요.</p>
   </div>
 </details>
-</div><div class="card">
-  <div class="top"><div class="nm">금 (온스당 달러)</div><div class="dt">2026-08-07</div></div>
-  <div class="val">4,401$</div>
+</div><div class="card" data-sym="GC=F" data-unit="$">
+  <div class="top"><div class="nm">금 (온스당 달러)</div><div class="dt">2026-08-10</div></div>
+  <div class="val">4,395$</div>
   <div class="row">
-    <span class="lb">1일</span><span class="d up">+3.8%</span>
-    <span class="lb">5일</span><span class="d up">+8.7%</span>
-    <span class="lb">20일</span><span class="d up">+7.2%</span>
+    <span class="lb">1일</span><span class="d up">+1.2%</span>
+    <span class="lb">5일</span><span class="d up">+9.0%</span>
+    <span class="lb">20일</span><span class="d up">+10.0%</span>
   </div>
-  <svg class="spark" viewBox="0 0 120 28" preserveAspectRatio="none"><polyline points="0.0,0.0 2.0,0.8 4.1,5.6 6.1,5.7 8.1,7.5 10.2,6.5 12.2,6.2 14.2,6.9 16.3,7.8 18.3,9.8 20.3,7.8 22.4,5.4 24.4,8.7 26.4,8.2 28.5,10.3 30.5,8.7 32.5,14.2 34.6,14.2 36.6,17.2 38.6,23.2 40.7,23.9 42.7,19.0 44.7,14.5 46.8,14.4 48.8,13.3 50.8,18.6 52.9,20.3 54.9,22.3 56.9,27.8 59.0,26.2 61.0,24.3 63.1,26.6 65.1,26.5 67.1,24.7 69.2,23.0 71.2,21.3 73.2,21.7 75.3,24.6 77.3,22.3 79.3,23.3 81.4,27.6 83.4,25.0 85.4,25.7 87.5,28.0 89.5,26.9 91.5,27.0 93.6,24.6 95.6,21.7 97.6,25.6 99.7,24.8 101.7,24.5 103.7,26.0 105.8,26.1 107.8,23.5 109.8,25.5 111.9,26.1 113.9,23.7 115.9,17.8 118.0,17.9 120.0,11.7" fill="none" stroke="#64748b" stroke-width="1.5"/></svg>
-  <div class="posbar"><div class="posdot" style="left:54.3%"></div></div><div class="poslb"><span>52주 최저 3,313</span><span>범위 안 54% 지점</span><span>최고 5,318</span></div>
+  <svg class="spark" viewBox="0 0 120 28" preserveAspectRatio="none"><polyline points="0.0,0.0 2.0,4.9 4.1,5.1 6.1,6.9 8.1,5.9 10.2,5.6 12.2,6.4 14.2,7.2 16.3,9.3 18.3,7.2 20.3,4.8 22.4,8.2 24.4,7.6 26.4,9.8 28.5,8.2 30.5,13.8 32.5,13.8 34.6,16.9 36.6,23.0 38.6,23.8 40.7,18.7 42.7,14.2 44.7,14.0 46.8,12.9 48.8,18.4 50.8,20.1 52.9,22.2 54.9,27.8 56.9,26.2 59.0,24.2 61.0,26.5 63.1,26.5 65.1,24.7 67.1,22.9 69.2,21.1 71.2,21.5 73.2,24.6 75.3,22.1 77.3,23.2 79.3,27.5 81.4,24.9 83.4,25.6 85.4,28.0 87.5,26.9 89.5,27.0 91.5,24.5 93.6,21.5 95.6,25.5 97.6,24.7 99.7,24.4 101.7,26.0 103.7,26.0 105.8,23.4 107.8,25.4 109.8,26.1 111.9,23.6 113.9,17.5 115.9,17.6 118.0,13.6 120.0,11.5" fill="none" stroke="#64748b" stroke-width="1.5"/></svg>
+  <div class="posbar"><div class="posdot" style="left:53.9%"></div></div><div class="poslb"><span>52주 최저 3,313</span><span>범위 안 54% 지점</span><span>최고 5,318</span></div>
   
   <div class="note">실질금리의 대용품. 지정학·통화 불안을 반영한다.</div>
   <details class="guide">
@@ -398,16 +408,16 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid #1e293b;font-size:1
     <div class="gh">주의할 점</div><p>금이 오르는 이유는 여러 개라, 가격만 보고는 어떤 이유인지 알 수 없습니다. 금리 카드, 환율 카드와 함께 봐야 해석이 됩니다.</p>
   </div>
 </details>
-</div><div class="card">
-  <div class="top"><div class="nm">엔/달러</div><div class="dt">2026-08-07</div></div>
-  <div class="val">157.7엔</div>
+</div><div class="card" data-sym="JPY=X" data-unit="엔">
+  <div class="top"><div class="nm">엔/달러</div><div class="dt">2026-08-10</div></div>
+  <div class="val">157.9엔</div>
   <div class="row">
-    <span class="lb">1일</span><span class="d down">-0.4%</span>
-    <span class="lb">5일</span><span class="d up">+0.1%</span>
-    <span class="lb">20일</span><span class="d down">-2.6%</span>
+    <span class="lb">1일</span><span class="d down">-0.3%</span>
+    <span class="lb">5일</span><span class="d up">+0.2%</span>
+    <span class="lb">20일</span><span class="d down">-2.5%</span>
   </div>
-  <svg class="spark" viewBox="0 0 120 28" preserveAspectRatio="none"><polyline points="0.0,22.1 2.0,21.3 4.1,22.0 6.1,21.4 8.1,21.7 10.2,21.7 12.2,20.4 14.2,19.0 16.3,20.3 18.3,19.9 20.3,18.7 22.4,17.2 24.4,17.3 26.4,17.1 28.5,15.6 30.5,16.3 32.5,15.4 34.6,14.7 36.6,16.5 38.6,17.3 40.7,16.1 42.7,15.2 44.7,14.4 46.8,11.4 48.8,10.7 50.8,10.1 52.9,10.0 54.9,9.3 56.9,9.1 59.0,9.2 61.0,8.6 63.1,5.5 65.1,5.9 67.1,10.7 69.2,10.7 71.2,7.8 73.2,6.6 75.3,5.9 77.3,6.6 79.3,8.8 81.4,6.3 83.4,7.4 85.4,7.9 87.5,6.6 89.5,6.0 91.5,6.1 93.6,3.0 95.6,3.5 97.6,0.1 99.7,1.1 101.7,0.4 103.7,0.0 105.8,2.5 107.8,16.3 109.8,27.8 111.9,28.0 113.9,27.3 115.9,27.7 118.0,24.1 120.0,27.0" fill="none" stroke="#64748b" stroke-width="1.5"/></svg>
-  <div class="posbar"><div class="posdot" style="left:64.9%"></div></div><div class="poslb"><span>52주 최저 146.4</span><span>범위 안 65% 지점</span><span>최고 163.9</span></div>
+  <svg class="spark" viewBox="0 0 120 28" preserveAspectRatio="none"><polyline points="0.0,22.1 2.0,21.3 4.1,22.0 6.1,21.4 8.1,21.7 10.2,21.7 12.2,20.4 14.2,19.0 16.3,20.3 18.3,19.9 20.3,18.7 22.4,17.2 24.4,17.3 26.4,17.1 28.5,15.6 30.5,16.3 32.5,15.4 34.6,14.7 36.6,16.5 38.6,17.3 40.7,16.1 42.7,15.2 44.7,14.4 46.8,11.4 48.8,10.7 50.8,10.1 52.9,10.0 54.9,9.3 56.9,9.1 59.0,9.2 61.0,8.6 63.1,5.5 65.1,5.9 67.1,10.7 69.2,10.7 71.2,7.8 73.2,6.6 75.3,5.9 77.3,6.6 79.3,8.8 81.4,6.3 83.4,7.4 85.4,7.9 87.5,6.6 89.5,6.0 91.5,6.1 93.6,3.0 95.6,3.5 97.6,0.1 99.7,1.1 101.7,0.4 103.7,0.0 105.8,2.5 107.8,16.3 109.8,27.8 111.9,28.0 113.9,27.3 115.9,27.7 118.0,24.1 120.0,26.4" fill="none" stroke="#64748b" stroke-width="1.5"/></svg>
+  <div class="posbar"><div class="posdot" style="left:65.8%"></div></div><div class="poslb"><span>52주 최저 146.4</span><span>범위 안 66% 지점</span><span>최고 163.9</span></div>
   
   <div class="note">엔캐리 청산은 한국 증시를 직격한 전례가 있다.</div>
   <details class="guide">
@@ -423,6 +433,101 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid #1e293b;font-size:1
 <footer>
 지표를 많이 볼수록 좋아지지 않습니다. 20개를 보면 언제나 몇 개는 사라고 하고 몇 개는 팔라고 합니다.
 그래서 핵심을 6개로 고정했습니다.<br><br>
+값은 두 경로로 들어옵니다. 서버가 평일에 주기적으로 만들어두는 값과, 페이지를 열 때 브라우저가 직접 받아오는 값입니다.
+'방금'이라고 표시된 카드는 후자입니다. 스파크라인과 52주 범위는 서버 갱신 때만 바뀝니다.<br><br>
+잘 안 될 때는 <a href="https://github.com/dakcucc/macro-panel/actions/workflows/daily.yml" target="_blank">깃허브에서 직접 갱신</a>할 수 있습니다.<br><br>
 출처 Yahoo Finance. 이 화면은 정보 정리 도구이며 투자 권유가 아닙니다. 판단과 책임은 본인에게 있습니다.
 </footer>
+
+<script>
+(function(){
+  // 야후는 웹페이지에서의 직접 호출을 막아두어서, 공개 중계 서버를 거친다.
+  // 중계 서버가 죽어 있을 수 있으므로 두 곳을 순서대로 시도한다.
+  var PROXIES = [
+    function(u){ return 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u); },
+    function(u){ return 'https://corsproxy.io/?url=' + encodeURIComponent(u); }
+  ];
+
+  function yurl(sym){
+    return 'https://query1.finance.yahoo.com/v8/finance/chart/'
+           + encodeURIComponent(sym) + '?range=1d&interval=1d';
+  }
+
+  function fmt(v, unit){
+    if (v === null || v === undefined || isNaN(v)) return '—';
+    var a = Math.abs(v), s;
+    if (a >= 1000) s = v.toLocaleString('en-US', {maximumFractionDigits:0});
+    else if (a >= 100) s = v.toFixed(1);
+    else s = v.toFixed(2);
+    return s + (unit || '');
+  }
+
+  async function grab(sym){
+    for (var i = 0; i < PROXIES.length; i++){
+      try {
+        var res = await fetch(PROXIES[i](yurl(sym)), {cache:'no-store'});
+        if (!res.ok) continue;
+        var j = await res.json();
+        var meta = j.chart.result[0].meta;
+        var price = meta.regularMarketPrice;
+        var prev = meta.chartPreviousClose;
+        if (prev === undefined) prev = meta.previousClose;
+        if (price === undefined || price === null) continue;
+        return {price: price, prev: prev};
+      } catch (e) { /* 다음 중계 서버로 */ }
+    }
+    return null;
+  }
+
+  var bar, btn, msg;
+
+  async function refresh(manual){
+    var cards = document.querySelectorAll('[data-sym]');
+    btn.disabled = true;
+    msg.textContent = '받아오는 중…';
+
+    var jobs = [], ok = 0, fail = 0;
+    cards.forEach(function(card){
+      jobs.push(grab(card.dataset.sym).then(function(d){
+        if (!d){ fail++; return; }
+        ok++;
+        card.querySelector('.val').textContent = fmt(d.price, card.dataset.unit);
+        var todaySpan = card.querySelector('.d');
+        if (todaySpan && d.prev){
+          var p = (d.price - d.prev) / Math.abs(d.prev) * 100;
+          todaySpan.textContent = (p > 0 ? '+' : '') + p.toFixed(1) + '%';
+          todaySpan.className = 'd ' + (p > 0 ? 'up' : (p < 0 ? 'down' : 'flat'));
+        }
+        card.querySelector('.dt').textContent = '방금';
+        card.classList.add('fresh');
+      }));
+    });
+
+    await Promise.allSettled(jobs);
+    btn.disabled = false;
+
+    var now = new Date();
+    var hh = String(now.getHours()).padStart(2,'0');
+    var mm = String(now.getMinutes()).padStart(2,'0');
+
+    if (ok === 0){
+      msg.innerHTML = '중계 서버가 응답하지 않습니다. '
+        + '<a href="https://github.com/dakcucc/macro-panel/actions/workflows/daily.yml" target="_blank">깃허브에서 직접 갱신하기</a>';
+    } else {
+      msg.textContent = hh + ':' + mm + ' 기준 ' + ok + '개 갱신'
+        + (fail ? ' (' + fail + '개 실패)' : '');
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    bar = document.getElementById('refresh-bar');
+    btn = document.getElementById('refresh-btn');
+    msg = document.getElementById('refresh-msg');
+    btn.addEventListener('click', function(){ refresh(true); });
+    refresh(false);                      // 페이지를 열면 바로 한 번
+    setInterval(function(){ refresh(false); }, 300000);  // 이후 5분마다
+  });
+})();
+</script>
+
 </body></html>
